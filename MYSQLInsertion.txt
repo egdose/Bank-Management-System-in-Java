@@ -1,0 +1,69 @@
+CREATE TABLE PERSON
+(
+	id int AUTO_INCREMENT PRIMARY KEY,
+    	name varchar(30) NOT NULL,
+    	address varchar(60) NOT NULL,
+    	contact varchar(15) NOT NULL,
+	CNIC varchar(17) NOT NULL UNIQUE
+);
+
+CREATE TABLE CUSTOMER 
+(
+    	id int AUTO_INCREMENT PRIMARY KEY,
+    	person_id int NOT NULL UNIQUE,
+	Username varchar(60) NOT NULL UNIQUE,
+	Password1 varchar(60) NOT NULL,
+	FOREIGN KEY (PERSON_ID) REFERENCES PERSON(id)
+);
+
+ALTER TABLE `CUSTOMER` ADD UNIQUE `unique_index`(`Username`, `Password1`);
+
+insert into person(name,address,contact,CNIC) values ('James','767-c, Victoria Heights, Islamabad','0311-1831111','3411-198-71');
+
+insert into customer(person_id,Username,password1) values ((select id from PERSON where CNIC = '3411-198-71'),'Tornado',password('tryhard'));
+
+insert into person(name,address,contact,CNIC) values ('Julie','787-c, Victoria Heights, Islamabad', '0311-1831112','3411-198-777');
+
+insert into customer(person_id,Username,password1) values ((select id from PERSON where CNIC = '3411-198-777'),'GoodOne',password('immortal'));
+
+insert into person(name,address,contact,CNIC) values ('Wilson','797-c, Queens Heights, Lahore', '0311-1837312','3411-198-987');
+
+insert into customer(person_id,Username,password1) values ((select id from PERSON where CNIC = '3411-198-987'),'Nisha',password('London'));
+
+CREATE TABLE MANAGER
+(
+	PERSON_ID int NOT NULL UNIQUE,
+	USERNAME VARCHAR(60) NOT NULL,
+	PASSWORD VARCHAR(60) NOT NULL,
+	PRIMARY KEY(USERNAME,PASSWORD),
+	FOREIGN KEY (PERSON_ID) REFERENCES PERSON(id)
+);
+
+insert into person(name,address,contact,CNIC) values ('Alex','1179-E, Johar Heights, Delhi', '0712-1837314','7420-198-9871');
+
+insert into manager(PERSON_ID,username,password) values ((select id from person where CNIC = '7420-198-9871'),'nami-chan',password('egtordosenado'));
+
+insert into person(name,address,contact,CNIC) values ('Imran','1178-E, Johar Heights, Delhi', '0712-1837315','7420-198-7621');
+
+
+CREATE TABLE Account (
+number INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
+owner VARCHAR(30) NOT NULL,
+balance double UNSIGNED NOT NULL,
+status VARCHAR(10) NOT NULL,
+startDate DATETIME DEFAULT CURRENT_TIMESTAMP,   
+type VARCHAR(10) NOT NULL,
+lim INT(10) NOT NULL,
+custid int NOT NULL,
+FOREIGN KEY (custid) REFERENCES customer(id) 
+);
+
+insert into account(owner,balance,status,type,lim,custid) values ('TORNADO',2000.98,'active','current',10000.98,1);
+
+insert into account(owner,balance,status,type,lim,custid) values ('EGDOSE',100000.97,'active','student',1000,1);
+
+insert into account(owner,balance,status,type,lim,custid) values ('ONI-CHAN',100000.97,'active','student',1000,2);
+
+insert into account(owner,balance,status,type,lim,custid) values ('LION',100000.97,'active','student',7000,3);
+
+select * from manager where username = 'nami-chan' and password = password('egtordosenado');
