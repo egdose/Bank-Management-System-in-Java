@@ -22,7 +22,9 @@ import javax.swing.border.EmptyBorder;
 public class GUI implements MouseListener, ActionListener{
 	
 	//BUSINESS LAYER
-	BusinessLayer businessLayer;
+	BusinessManagerLogin managerL;
+	BusinessCustomerManagment custManagment;
+	BusinessAccountManagement accManagement;
 	
 	//IGNORED VARIABLE
 	int ignore = -1;
@@ -181,8 +183,9 @@ public class GUI implements MouseListener, ActionListener{
 	
 	GUI(){
 		//INITIATING BUSINESS LAYER
-		businessLayer = new BusinessLayer();
-		
+		managerL = new BusinessManagerLogin();
+		custManagment = new BusinessCustomerManagment();
+		accManagement = new BusinessAccountManagement();
 		//SETTING CORRECT STATE
 		softwareState = 1;
 		
@@ -286,12 +289,12 @@ public class GUI implements MouseListener, ActionListener{
 		threeZeroUsername.setForeground(gParams.whiteMain);
 		threeZeroUsername.setBorder(gParams.noBorder);
 		threeZeroUsername.setOpaque(false);
-		threeZeroUsername.setText("slark"); 		//CHANGE THIS LATER
+		threeZeroUsername.setText("nami-chan"); 		//CHANGE THIS LATER
 		threeZeroUsername.setCaretColor(gParams.whiteMain);
 		threeZeroUsername.setBounds(359, 322, gParams.normalField.width, gParams.normalField.height);
 
 		//PASSWORD TEXTFIELD
-		threeZeroPassword = new JPasswordField("elite.gamer.pk", 20);	//CHANGE THIS LATER
+		threeZeroPassword = new JPasswordField("egtordosenado", 20);	//CHANGE THIS LATER
 		threeZeroPassword.setPreferredSize(gParams.normalField);
 		threeZeroPassword.setFont(gParams.subheadingFont);
 		threeZeroPassword.setForeground(gParams.whiteMain);
@@ -1621,7 +1624,7 @@ public class GUI implements MouseListener, ActionListener{
 				String inputUsername = threeZeroUsername.getText();
 				char[] inputPassword = threeZeroPassword.getPassword();
 				
-				int response = businessLayer.managerLogin(inputUsername, inputPassword);
+				int response = managerL.managerLogin(inputUsername, inputPassword);
 				
 				if(response == 0)
 				{
@@ -1760,7 +1763,7 @@ public class GUI implements MouseListener, ActionListener{
 				String criteria = threeFourCriteria.getText();
 				String query = threeFourQuery.getText();
 				//System.out.println("SEARCH INITIATED");
-				ArrayList<String> result = businessLayer.mCSearch(criteria, query);
+				ArrayList<String> result = custManagment.mCSearch(criteria, query);
 				
 				if(result == null || result.get(0).equals("0"))
 				{
@@ -1813,7 +1816,7 @@ public class GUI implements MouseListener, ActionListener{
 				String criteria = threeFourCriteria.getText();
 				String query = threeFourQuery.getText();
 				//System.out.println("SEARCH INITIATED");
-				ArrayList<String> result = businessLayer.mCSearch(criteria, query);
+				ArrayList<String> result = custManagment.mCSearch(criteria, query);
 				
 				if(result == null || result.get(0).equals("0"))
 				{
@@ -1863,7 +1866,7 @@ public class GUI implements MouseListener, ActionListener{
 				else
 				{
 					threeFourILabel.setIcon(null);
-					int response = businessLayer.mCModify(
+					int response = custManagment.mCModify(
 								threeFourID.getText(),
 								threeFourAddress.getText(),
 								threeFourContact.getText(),
@@ -1899,7 +1902,7 @@ public class GUI implements MouseListener, ActionListener{
 			else if(e.getSource() == threeSixALabel)
 			{
 				wrongLabel.setIcon(null);
-				int response = businessLayer.mCAdd(
+				int response = custManagment.mCAdd(
 							threeFourName.getText(),
 							threeFourAddress.getText(),
 							threeFourContact.getText(),
@@ -1937,7 +1940,7 @@ public class GUI implements MouseListener, ActionListener{
 			{
 				String query = threeSevenQuery.getText();
 				//System.out.println("SEARCH INITIATED");
-				ArrayList<String> result = businessLayer.mASearch(query);
+				ArrayList<String> result = accManagement.mASearch(query);
 				
 				if(result == null)
 				{
@@ -1995,7 +1998,7 @@ public class GUI implements MouseListener, ActionListener{
 			{
 				String query = threeSevenQuery.getText();
 				//System.out.println("SEARCH INITIATED");
-				ArrayList<String> result = businessLayer.mASearch(query);
+				ArrayList<String> result = accManagement.mASearch(query);
 				
 				if(result == null)
 				{
@@ -2056,7 +2059,7 @@ public class GUI implements MouseListener, ActionListener{
 					String type = threeSevenType.getText();
 					String lim = threeSevenLimit.getText();
 					
-					int response = businessLayer.mAModify(accNum, title, status, type, lim);
+					int response = accManagement.mAModify(accNum, title, status, type, lim);
 					
 					if(response == 0)
 					{
@@ -2089,7 +2092,7 @@ public class GUI implements MouseListener, ActionListener{
 			{
 				String query = threeSevenQuery.getText();
 				//System.out.println("SEARCH INITIATED");
-				ArrayList<String> result = businessLayer.mASearch(query);
+				ArrayList<String> result = accManagement.mASearch(query);
 				
 				if(result == null)
 				{
@@ -2138,7 +2141,7 @@ public class GUI implements MouseListener, ActionListener{
 					
 					String accNum = threeSevenQuery.getText();
 					
-					int response = businessLayer.mADelete(accNum);
+					int response = accManagement.mADelete(accNum);
 					//System.out.println("ACCOUNT SHOULD BE DELETED HERE");
 					if(response == 0)
 					{
@@ -2174,7 +2177,7 @@ public class GUI implements MouseListener, ActionListener{
 			{
 				String query = threeSevenID.getText();
 				//System.out.println("SEARCH INITIATED");
-				String custName = businessLayer.mAAdd_CheckCustomer(query);
+				String custName = accManagement.mAAdd_CheckCustomer(query);
 				
 				if(custName == null || custName.equals("0"))
 				{
@@ -2220,7 +2223,7 @@ public class GUI implements MouseListener, ActionListener{
 				String type = threeSevenType.getText();
 				String lim = threeSevenLimit.getText();
 				String balance = threeSevenBalance.getText();
-				int response = businessLayer.mAAdd(custID, title, type, lim, balance);
+				int response = accManagement.mAAdd(custID, title, type, lim, balance);
 				
 				threeSevenQuery.setText(Integer.toString(response));
 				threeNineALabel.setIcon(threeNineAdded);

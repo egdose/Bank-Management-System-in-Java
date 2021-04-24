@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 
 public class Manager_Login 
 {
-	//static int tries = 0;
 	Connection conn;
 	PreparedStatement p;
 	ResultSet r;
@@ -29,17 +28,11 @@ public class Manager_Login
 			}
 			if ( count == 0 )
 			{
-				//tries++;
-				//if ( tries == 3 )
-				//{
-				//	System.exit(0);
-				//}
 				return 0;
 			}
 		}
 		catch(Exception e)
 		{
-			//Error occured in backend system
 			return -1;
 		}
 		return 1;
