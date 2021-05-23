@@ -3435,6 +3435,60 @@ public class GUI implements MouseListener, ActionListener{
 				oneALabel.setIcon(oneAccountantHover);
 			}
 		}
+		else if(softwareState == 20)
+		{
+			if(e.getSource() == twoZeroLLabel && ignore != 20)
+			{
+				twoZeroLLabel.setIcon(twoZeroLoginHover);
+			}
+		}
+		else if(softwareState == 21)
+		{
+			if(e.getSource() == twoOneABLabel)
+			{
+				twoOneABLabel.setIcon(twoOneBillerHover);
+			}
+			else if(e.getSource() == twoOneAPLabel)
+			{
+				twoOneAPLabel.setIcon(twoOnePayeeHover);
+			}
+			else if(e.getSource() == twoOneBLabel)
+			{
+				twoOneBLabel.setIcon(twoOneBillPaymentHover);
+			}
+			else if(e.getSource() == twoOneFLabel)
+			{
+				twoOneFLabel.setIcon(twoOneFundsHover);
+			}
+		}
+		else if(softwareState == 22)
+		{
+			if(e.getSource() == twoTwoABLabel)
+			{
+				twoTwoABLabel.setIcon(twoOneBillerHover);
+			}
+		}
+		else if(softwareState == 23)
+		{
+			if(e.getSource() == twoThreeAPLabel)
+			{
+				twoThreeAPLabel.setIcon(twoOnePayeeHover);
+			}
+		}
+		else if(softwareState == 24)
+		{
+			if(e.getSource() == twoFourSLabel)
+			{
+				twoFourSLabel.setIcon(twoFourSendPaymentHover);
+			}
+		}
+		else if(softwareState == 25)
+		{
+			if(e.getSource() == twoFourSLabel)
+			{
+				twoFourSLabel.setIcon(twoFourSendPaymentHover);
+			}
+		}
 		else if(softwareState == 30)
 		{
 			if(e.getSource() == threeZeroLLabel && ignore != 30)
@@ -3542,6 +3596,60 @@ public class GUI implements MouseListener, ActionListener{
 				oneALabel.setIcon(oneAccountant);
 			}
 		}
+		else if(softwareState == 20)
+		{
+			if(e.getSource() == twoZeroLLabel && ignore != 20)
+			{
+				twoZeroLLabel.setIcon(twoZeroLogin);
+			}
+		}
+		else if(softwareState == 21)
+		{
+			if(e.getSource() == twoOneABLabel)
+			{
+				twoOneABLabel.setIcon(twoOneBiller);
+			}
+			else if(e.getSource() == twoOneAPLabel)
+			{
+				twoOneAPLabel.setIcon(twoOnePayee);
+			}
+			else if(e.getSource() == twoOneBLabel)
+			{
+				twoOneBLabel.setIcon(twoOneBillPayment);
+			}
+			else if(e.getSource() == twoOneFLabel)
+			{
+				twoOneFLabel.setIcon(twoOneFunds);
+			}
+		}
+		else if(softwareState == 22)
+		{
+			if(e.getSource() == twoTwoABLabel)
+			{
+				twoTwoABLabel.setIcon(twoOneBiller);
+			}
+		}
+		else if(softwareState == 23)
+		{
+			if(e.getSource() == twoThreeAPLabel)
+			{
+				twoThreeAPLabel.setIcon(twoOnePayee);
+			}
+		}
+		else if(softwareState == 24)
+		{
+			if(e.getSource() == twoFourSLabel)
+			{
+				twoFourSLabel.setIcon(twoFourSendPayment);
+			}
+		}
+		else if(softwareState == 25)
+		{
+			if(e.getSource() == twoFourSLabel)
+			{
+				twoFourSLabel.setIcon(twoFourSendPayment);
+			}
+		}
 		else if(softwareState == 30)
 		{
 			if(e.getSource() == threeZeroLLabel && ignore != 30)
@@ -3635,6 +3743,21 @@ public class GUI implements MouseListener, ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		
+		if(softwareState == 22)
+		{
+			if(e.getSource() == twoTwoCategories)
+			{
+
+				int index = twoTwoCategories.getSelectedIndex();
+				
+				//System.out.println("INDEX: " + index);
+				twoTwoSubcategories.removeAllItems();
+				
+				for(int i = 0 ; i < billerList.get(index).size() ; i ++)
+				{
+					twoTwoSubcategories.addItem(billerList.get(index).get(i));
+				}
+			}
+		}
 	}
 }
