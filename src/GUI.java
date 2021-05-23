@@ -2568,6 +2568,15 @@ public class GUI implements MouseListener, ActionListener{
 					int response = custProcessing.addUserBiller(subcategory, referenceNumber);
 					//System.out.println("BACKEND CALL HERE " + category + " " + subcategory );
 					
+					//Check if reference is numeric and positive
+					if(referenceNumber.matches("^[0-9]*$") && Integer.parseInt(referenceNumber) > 0 )
+					{
+					    
+					}
+					else
+					{
+						response = 0;
+					}
 					if(response == 0)
 					{
 						wrongLabel.setIcon(wrongImage);
@@ -2624,6 +2633,7 @@ public class GUI implements MouseListener, ActionListener{
 				
 				try {
 					response = custProcessing.addUserPayee(Nickname, Account);
+					
 					
 					if(response == 0)
 					{
@@ -2764,10 +2774,7 @@ public class GUI implements MouseListener, ActionListener{
 							twoOneTitle.setText(customerTitles.get(index3));
 							twoFiveLimit.setText(Double.toString(customerLimits.get(twoOneAccounts.getSelectedIndex())));
 						}
-							
-						//System.out.println("Successful");
 					}
-					//System.out.println("BACKEND FUNCTION");
 				}
 				catch (Exception ee) {
 					wrongLabel.setIcon(wrongImage);
