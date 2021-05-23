@@ -2766,6 +2766,10 @@ public class GUI implements MouseListener, ActionListener{
 						int index2 = twoFourBillers.getSelectedIndex();
 						String referenceNumber = referenceNumbers.get(index2);
 						String accNum = (String)twoOneAccounts.getSelectedItem();
+						if(Integer.parseInt(referenceNumber) == Integer.parseInt(accNum))
+						{
+							throw new Exception("Cannot transfer funds between same account");
+						}
 						String amount = Double.toString(payment);
 						int response = custProcessing.addTransaction(accNum, referenceNumber,amount);
 						if(response == 1)
