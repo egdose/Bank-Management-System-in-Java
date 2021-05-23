@@ -25,6 +25,8 @@ public class GUI implements MouseListener, ActionListener{
 	BusinessManagerLogin managerL;
 	BusinessCustomerManagment custManagment;
 	BusinessAccountManagement accManagement;
+	BusinessCustomerLogin custLogin;
+	BusinessCustomerProcessing custProcessing;
 	
 	//IGNORED VARIABLE
 	int ignore = -1;
@@ -32,6 +34,13 @@ public class GUI implements MouseListener, ActionListener{
 	int softwareState = 1;
 	//STATES
 	//STATE 1 - MAIN PAGE		- stateOne()
+	//STATE 20 - C-LOGIN		- cLogin()
+	//STATE 21 - C-MAIN			- cMain()
+	//STATE 22 - C-ADD-BILLER	- cBiller()
+	//STATE 23 - C-ADD-PAYEE	- cPayee()
+	//STATE 24 - C-BILL-PAYMENT - cBillPayment()
+	//STATE 25 - C-TRANSFER		- cTransfer()
+	//STATE 26 - C-PRINT		- cPrint()
 	//STATE 30 - M-LOGIN		- mLogin()
 	//STATE 31 - M-MAIN			- mMain()
 	//STATE 32 - M-ACCOUNTS		- mAccounts()
@@ -60,7 +69,39 @@ public class GUI implements MouseListener, ActionListener{
 	JLabel oneALabel;	//ASSISTANT BUTTON
 	JLabel oneBLabel;	//BANK MANAGER BUTTON
 	JLabel oneCLabel;	//CUSTOMER BUTTON
-	
+	//STATE 20 - C-LOGIN
+	JLabel twoZeroLLabel;
+	JLabel twoZeroBLabel;
+	JLabel twoZeroILabel;
+	//STATE 21 - C-MAIN
+	JLabel twoOneTitle;
+	JLabel twoOneBalance;
+	JLabel twoOnePrint;
+	JLabel twoOneRefresh;
+	ArrayList<String> customerTitles;
+	ArrayList<Integer> customerAccounts;
+	ArrayList<Double> customerBalance;
+	JComboBox<String> twoOneAccounts;
+	JLabel twoOneABLabel;
+	JLabel twoOneAPLabel;
+	JLabel twoOneBLabel;
+	JLabel twoOneFLabel;
+	//STATE 22 - C-BILLER
+	ArrayList<String> billerCategory;
+	ArrayList<ArrayList<String>> billerList;
+	JComboBox<String> twoTwoCategories;
+	JComboBox<String> twoTwoSubcategories;
+	JLabel twoTwoABLabel;
+	//STATE 23 - C-PAYEE
+	JLabel twoThreeAPLabel;
+	//STATE 24 - C-BILL-PAYMENT
+	ArrayList<String> billerNames;
+	ArrayList<String> referenceNumbers;
+	JComboBox<String> twoFourBillers;
+	JLabel twoFourSLabel;
+	//STATE 25 - C-TRANSFER
+	JLabel twoFiveLimit;
+	ArrayList<Double> customerLimits;
 	//STATE 30 - M-LOGIN
 	JLabel threeZeroLLabel;
 	JLabel threeZeroBLabel;
@@ -93,6 +134,16 @@ public class GUI implements MouseListener, ActionListener{
 	JLabel threeEightOneDLabel;
 	
 	//TEXTFIELDS
+	//STATE 20 - C-LOGIN
+	JTextField twoZeroUsername;
+	JPasswordField twoZeroPassword;
+	//STATE 22 - C-BILLER
+	JTextField twoTwoReference;
+	//STATE 23 - C-PAYEE
+	JTextField twoThreeNickname;
+	JTextField twoThreeAccount;
+	//STATE 24 - C-BILL-PAYMENT
+	JTextField twoFourAmount;
 	//STATE 30 - M-LOGIN
 	JTextField threeZeroUsername;
 	JPasswordField threeZeroPassword;
@@ -142,6 +193,28 @@ public class GUI implements MouseListener, ActionListener{
 	ImageIcon oneAccountant = new ImageIcon("Graphics/FirstPage/ACCOUNTANT.png");
 	ImageIcon oneAccountantHover = new ImageIcon("Graphics/FirstPage/ACCOUNTANT-HOVER.png");
 	
+	//STATE 20 - C-LOGIN
+	ImageIcon twoZeroLogin = new ImageIcon("Graphics/C-Login/LOGIN.png");
+	ImageIcon twoZeroLoginHover = new ImageIcon("Graphics/C-Login/LOGIN-HOVER.png");
+	ImageIcon twoZeroLoginCheck = new ImageIcon("Graphics/C-Login/LOGIN-CHECKING.png");
+	//STATE 21 - C-MAIN
+	ImageIcon twoOnePrintImage = new ImageIcon("Graphics/C-Main/PRINT.png");
+	ImageIcon twoOneBiller = new ImageIcon("Graphics/C-Main/BILLER.png");
+	ImageIcon twoOneBillerHover = new ImageIcon("Graphics/C-Main/BILLER-HOVER.png");
+	ImageIcon twoOnePayee = new ImageIcon("Graphics/C-Main/PAYEE.png");
+	ImageIcon twoOnePayeeHover = new ImageIcon("Graphics/C-Main/PAYEE-HOVER.png");
+	ImageIcon twoOneBillPayment = new ImageIcon("Graphics/C-Main/BILL-PAYMENT.png");
+	ImageIcon twoOneBillPaymentHover = new ImageIcon("Graphics/C-Main/BILL-PAYMENT-HOVER.png");
+	ImageIcon twoOneFunds = new ImageIcon("Graphics/C-Main/FUNDS.png");
+	ImageIcon twoOneFundsHover = new ImageIcon("Graphics/C-Main/FUNDS-HOVER.png");
+	//STATE 22 - C-BILLER
+	ImageIcon twoTwoBillerAdded = new ImageIcon("Graphics/C-Biller/BILLERADDED.png");
+	//STATE 23 - C-PAYEE
+	ImageIcon twoThreePayeeAdded = new ImageIcon("Graphics/C-Payee/PAYEEADDED.png");
+	//STATE 24 - C-BILL-PAYMENT
+	ImageIcon twoFourSendPayment = new ImageIcon("Graphics/C-BillPayment/SEND-PAYMENT.png");
+	ImageIcon twoFourSendPaymentHover = new ImageIcon("Graphics/C-BillPayment/SEND-PAYMENT-HOVER.png");
+	ImageIcon twoFourSent = new ImageIcon("Graphics/C-BillPayment/SENT.png");
 	//STATE 30 - M-LOGIN
 	ImageIcon threeZeroLogin = new ImageIcon("Graphics/M-Login/LOGIN.png");
 	ImageIcon threeZeroLoginHover = new ImageIcon("Graphics/M-Login/LOGIN-HOVER.png");
@@ -186,6 +259,8 @@ public class GUI implements MouseListener, ActionListener{
 		managerL = new BusinessManagerLogin();
 		custManagment = new BusinessCustomerManagment();
 		accManagement = new BusinessAccountManagement();
+		custLogin = new BusinessCustomerLogin();
+		custProcessing = new BusinessCustomerProcessing();
 		//SETTING CORRECT STATE
 		softwareState = 1;
 		
@@ -251,6 +326,752 @@ public class GUI implements MouseListener, ActionListener{
 		mainPane.add(oneBLabel);
 		mainPane.add(oneCLabel);
 		mainPane.add(exitLabel);
+		mainPane.add(background);
+	}
+	
+	private void cLogin() {
+		//CLEARING PANE
+		mainPane.removeAll();
+
+		customerTitles = new ArrayList<String>();
+		customerAccounts = new ArrayList<Integer>();
+		customerBalance = new ArrayList<Double>();
+		
+		//BACKGROUND
+		ImageIcon bgImage = new ImageIcon("Graphics/C-Login/LayoutBase.png");
+		background = new JLabel();
+		background.setIcon(bgImage);
+		background.setBounds(0, 0, gParams.frameWidth, gParams.frameHeight);
+		
+		
+		//LOGIN LABEL
+		twoZeroLLabel = new JLabel();
+		twoZeroLLabel.setIcon(twoZeroLogin);
+		twoZeroLLabel.setBounds(357, 460, twoZeroLogin.getIconWidth(), twoZeroLogin.getIconHeight());
+		twoZeroLLabel.addMouseListener(this);
+		
+		//EXIT LABEL
+		exitLabel = new JLabel();
+		exitLabel.setIcon(exitImage);
+		exitLabel.setBounds(638, 584, exitImage.getIconWidth(), exitImage.getIconHeight());
+		exitLabel.addMouseListener(this);
+		
+		//BACK LABEL
+		backLabel = new JLabel();
+		backLabel.setIcon(backImage);
+		backLabel.setBounds(292, 584, backImage.getIconWidth(), backImage.getIconHeight());
+		backLabel.addMouseListener(this);
+
+		//USERNAME TEXTFIELD
+		twoZeroUsername = new JTextField();
+		twoZeroUsername.setPreferredSize(gParams.normalField);
+		twoZeroUsername.setFont(gParams.subheadingFont);
+		twoZeroUsername.setForeground(gParams.whiteMain);
+		twoZeroUsername.setBorder(gParams.noBorder);
+		twoZeroUsername.setOpaque(false);
+		twoZeroUsername.setText("Tornado");
+		twoZeroUsername.setCaretColor(gParams.whiteMain);
+		twoZeroUsername.setBounds(359, 322, gParams.normalField.width, gParams.normalField.height);
+
+		//PASSWORD TEXTFIELD
+		twoZeroPassword = new JPasswordField("tryhard", 20);
+		twoZeroPassword.setPreferredSize(gParams.normalField);
+		twoZeroPassword.setFont(gParams.subheadingFont);
+		twoZeroPassword.setForeground(gParams.whiteMain);
+		twoZeroPassword.setBorder(gParams.noBorder);
+		twoZeroPassword.setOpaque(false);
+		//twoZeroPassword.setText("password");
+		twoZeroPassword.setCaretColor(gParams.whiteMain);
+		twoZeroPassword.setBounds(359, 403, gParams.normalField.width, gParams.normalField.height);
+
+		//INCORRECT MESSAGE
+		twoZeroILabel = new JLabel();
+		twoZeroILabel.setBounds(367, 542, incorrectImage.getIconWidth(), incorrectImage.getIconHeight());
+		
+		//ADDING COMPONENTS TO PANE
+		mainPane.add(twoZeroILabel);
+		mainPane.add(twoZeroUsername);
+		mainPane.add(twoZeroPassword);
+		mainPane.add(twoZeroLLabel);
+		mainPane.add(exitLabel);
+		mainPane.add(backLabel);
+		mainPane.add(background);
+
+	}
+	
+	private void cMain() {
+		//CLEARING PANE
+		mainPane.removeAll();
+
+		//BACKGROUND
+		ImageIcon bgImage = new ImageIcon("Graphics/C-Main/LayoutBase.png");
+		background = new JLabel();
+		background.setIcon(bgImage);
+		background.setBounds(0, 0, gParams.frameWidth, gParams.frameHeight);
+		
+		//LOGOUT LABEL
+		logoutLabel = new JLabel();
+		logoutLabel.setIcon(logoutImage);
+		logoutLabel.setBounds(150, 632, logoutImage.getIconWidth(), logoutImage.getIconHeight());
+		logoutLabel.addMouseListener(this);
+		
+		//EXIT LABEL
+		exitLabel = new JLabel();
+		exitLabel.setIcon(exitImage);
+		exitLabel.setBounds(782, 632, exitImage.getIconWidth(), exitImage.getIconHeight());
+		exitLabel.addMouseListener(this);
+		
+		//ACCOUNT TITLE LABEL
+		twoOneTitle = new JLabel();
+		twoOneTitle.setBounds(130, 355, 219, 21);
+		twoOneTitle.setFont(gParams.headingFont);
+		twoOneTitle.setForeground(gParams.whiteMain);
+		twoOneTitle.setOpaque(false);
+		twoOneTitle.setHorizontalAlignment(JLabel.CENTER);
+		twoOneTitle.setVerticalAlignment(JLabel.CENTER);
+		twoOneTitle.setText(customerTitles.get(0));
+		
+		//BALANCE LABEL
+		twoOneBalance = new JLabel();
+		twoOneBalance.setBounds(135, 445, 208, 33);
+		twoOneBalance.setFont(gParams.headingFont);
+		twoOneBalance.setForeground(gParams.whiteMain);
+		twoOneBalance.setOpaque(false);
+		twoOneBalance.setHorizontalAlignment(JLabel.CENTER);
+		twoOneBalance.setVerticalAlignment(JLabel.CENTER);
+		twoOneBalance.setText("PKR " + Double.toString(customerBalance.get(0)));
+		
+		//REFRESH LABEL
+		twoOneRefresh = new JLabel();
+		twoOneRefresh.setIcon(refreshIcon);
+		twoOneRefresh.setBounds(326, 398, refreshIcon.getIconWidth(), refreshIcon.getIconHeight());
+		twoOneRefresh.addMouseListener(this);
+		
+		//ACCOUNTS JComboBox
+		twoOneAccounts = new JComboBox<String>();
+		for(int i = 0 ; i < customerAccounts.size() ; i ++)
+		{
+			twoOneAccounts.addItem(Integer.toString(customerAccounts.get(i)));
+		}
+		twoOneAccounts.setOpaque(true);
+		twoOneAccounts.setFont(gParams.normalFont);
+		twoOneAccounts.setForeground(gParams.whiteMain);
+		twoOneAccounts.setBackground(gParams.backgroundBlue);
+		twoOneAccounts.setBounds(203, 395, 100, 20);
+		for (int i = 0; i < twoOneAccounts.getComponentCount(); i++) 
+		{
+		    if (twoOneAccounts.getComponent(i) instanceof JComponent) {
+		        ((JComponent) twoOneAccounts.getComponent(i)).setBorder(new EmptyBorder(0, 0,0,0));
+		    }
+
+
+		    if (twoOneAccounts.getComponent(i) instanceof AbstractButton) {
+		        ((AbstractButton) twoOneAccounts.getComponent(i)).setBorderPainted(false);
+		    }
+		}
+		
+		//PRINT LABEL
+		twoOnePrint = new JLabel();
+		twoOnePrint.setIcon(twoOnePrintImage);
+		twoOnePrint.setBounds(129, 507, twoOnePrintImage.getIconWidth(), twoOnePrintImage.getIconHeight());
+		twoOnePrint.addMouseListener(this);
+		
+		//ADD BILLER LABEL
+		twoOneABLabel = new JLabel();
+		twoOneABLabel.setIcon(twoOneBiller);
+		twoOneABLabel.setBounds(531, 172, twoOneBiller.getIconWidth(), twoOneBiller.getIconHeight());
+		twoOneABLabel.addMouseListener(this);
+		
+		//ADD PAYEE LABEL
+		twoOneAPLabel = new JLabel();
+		twoOneAPLabel.setIcon(twoOnePayee);
+		twoOneAPLabel.setBounds(531, 272, twoOnePayee.getIconWidth(), twoOnePayee.getIconHeight());
+		twoOneAPLabel.addMouseListener(this);
+		
+		//BILL PAYMENT LABEL
+		twoOneBLabel = new JLabel();
+		twoOneBLabel.setIcon(twoOneBillPayment);
+		twoOneBLabel.setBounds(531, 372, twoOneBillPayment.getIconWidth(), twoOneBillPayment.getIconHeight());
+		twoOneBLabel.addMouseListener(this);
+		
+		//TRANSFER FUNDS LABEL
+		twoOneFLabel = new JLabel();
+		twoOneFLabel.setIcon(twoOneFunds);
+		twoOneFLabel.setBounds(531, 472, twoOneFunds.getIconWidth(), twoOneFunds.getIconHeight());
+		twoOneFLabel.addMouseListener(this);
+		
+		//ADDING COMPONENTS TO MAINPANE
+		mainPane.add(twoOneABLabel);
+		mainPane.add(twoOneAPLabel);
+		mainPane.add(twoOneBLabel);
+		mainPane.add(twoOneFLabel);
+		mainPane.add(twoOneAccounts);
+		mainPane.add(twoOneRefresh);
+		mainPane.add(twoOneBalance);
+		mainPane.add(twoOnePrint);
+		mainPane.add(twoOneTitle);
+		mainPane.add(exitLabel);
+		mainPane.add(logoutLabel);
+		mainPane.add(background);
+	}
+	
+	private void cBiller() {
+		//CLEARING PANE
+		mainPane.removeAll();
+		
+		//GETTING THE LIST OF BILLER CATEGORIES AND THEIR SUB-TYPES
+		billerCategory = new ArrayList<String>();
+		billerList = new ArrayList<ArrayList<String>>();
+		
+		custProcessing.fetchBillers(billerCategory, billerList);
+		
+
+		//CATEGORY JComboBox
+		twoTwoCategories = new JComboBox<String>();
+		for(int i = 0 ; i < billerCategory.size() ; i ++)
+		{
+			twoTwoCategories.addItem(billerCategory.get(i));
+		}
+		twoTwoCategories.setOpaque(true);
+		twoTwoCategories.setFont(gParams.normalFont);
+		twoTwoCategories.setForeground(gParams.whiteMain);
+		twoTwoCategories.setBackground(gParams.backgroundBlue);
+		twoTwoCategories.setBounds(580, 250, 100, 20);
+		twoTwoCategories.addActionListener(this);
+ 		removeBorder(twoTwoCategories);
+
+		//SUBCATEGORY JComboBox
+		twoTwoSubcategories = new JComboBox<String>();
+		for(int i = 0 ; i < billerList.get(0).size() ; i ++)
+		{
+			twoTwoSubcategories.addItem(billerList.get(0).get(i));
+		}
+		twoTwoSubcategories.setOpaque(true);
+		twoTwoSubcategories.setFont(gParams.normalFont);
+		twoTwoSubcategories.setForeground(gParams.whiteMain);
+		twoTwoSubcategories.setBackground(gParams.backgroundBlue);
+		twoTwoSubcategories.setBounds(741, 250, 90, 20);
+		removeBorder(twoTwoSubcategories);
+
+		//REFERENCE NUMBER LABEL
+		twoTwoReference = new JTextField();
+		twoTwoReference.setPreferredSize(new Dimension(130, 15));
+		twoTwoReference.setFont(gParams.subheadingFont);
+		twoTwoReference.setForeground(gParams.primaryLight);
+		twoTwoReference.setBorder(gParams.noBorder);
+		twoTwoReference.setOpaque(false);
+		twoTwoReference.setText("XXXX");
+		twoTwoReference.setCaretColor(gParams.primaryLight);
+		twoTwoReference.setBounds(603, 322, 130, 15);
+
+		//WRONG LABEL
+		wrongLabel = new JLabel();
+		wrongLabel.setBounds(586, 221, wrongImage.getIconWidth(), wrongImage.getIconHeight());
+		
+		//ADD BILLER LABEL
+		twoTwoABLabel = new JLabel();
+		twoTwoABLabel.setIcon(twoOneBiller);
+		twoTwoABLabel.setBounds(531, 392, twoOneBiller.getIconWidth(), twoOneBiller.getIconHeight());
+		twoTwoABLabel.addMouseListener(this);
+
+		//BACKGROUND
+		ImageIcon bgImage = new ImageIcon("Graphics/C-Biller/LayoutBase.png");
+		background = new JLabel();
+		background.setIcon(bgImage);
+		background.setBounds(0, 0, gParams.frameWidth, gParams.frameHeight);
+		
+		//BACK LABEL
+		backLabel = new JLabel();
+		backLabel.setIcon(backImage);
+		backLabel.setBounds(694, 632, backImage.getIconWidth(), backImage.getIconHeight());
+		backLabel.addMouseListener(this);
+		
+		//LOGOUT LABEL
+		logoutLabel = new JLabel();
+		logoutLabel.setIcon(logoutImage);
+		logoutLabel.setBounds(150, 632, logoutImage.getIconWidth(), logoutImage.getIconHeight());
+		logoutLabel.addMouseListener(this);
+		
+		//EXIT LABEL
+		exitLabel = new JLabel();
+		exitLabel.setIcon(exitImage);
+		exitLabel.setBounds(782, 632, exitImage.getIconWidth(), exitImage.getIconHeight());
+		exitLabel.addMouseListener(this);
+		
+		//ACCOUNT TITLE LABEL
+		twoOneTitle = new JLabel();
+		twoOneTitle.setBounds(130, 355, 219, 21);
+		twoOneTitle.setFont(gParams.headingFont);
+		twoOneTitle.setForeground(gParams.whiteMain);
+		twoOneTitle.setOpaque(false);
+		twoOneTitle.setHorizontalAlignment(JLabel.CENTER);
+		twoOneTitle.setVerticalAlignment(JLabel.CENTER);
+		twoOneTitle.setText(customerTitles.get(0));
+		
+		//BALANCE LABEL
+		twoOneBalance = new JLabel();
+		twoOneBalance.setBounds(135, 445, 208, 33);
+		twoOneBalance.setFont(gParams.headingFont);
+		twoOneBalance.setForeground(gParams.whiteMain);
+		twoOneBalance.setOpaque(false);
+		twoOneBalance.setHorizontalAlignment(JLabel.CENTER);
+		twoOneBalance.setVerticalAlignment(JLabel.CENTER);
+		twoOneBalance.setText("PKR " + Double.toString(customerBalance.get(0)));
+		
+		//REFRESH LABEL
+		twoOneRefresh = new JLabel();
+		twoOneRefresh.setIcon(refreshIcon);
+		twoOneRefresh.setBounds(326, 398, refreshIcon.getIconWidth(), refreshIcon.getIconHeight());
+		twoOneRefresh.addMouseListener(this);
+		
+		//ACCOUNTS JComboBox
+		twoOneAccounts = new JComboBox<String>();
+		for(int i = 0 ; i < customerAccounts.size() ; i ++)
+		{
+			twoOneAccounts.addItem(Integer.toString(customerAccounts.get(i)));
+		}
+		twoOneAccounts.setOpaque(true);
+		twoOneAccounts.setFont(gParams.normalFont);
+		twoOneAccounts.setForeground(gParams.whiteMain);
+		twoOneAccounts.setBackground(gParams.backgroundBlue);
+		twoOneAccounts.setBounds(203, 395, 100, 20);
+		removeBorder(twoOneAccounts);
+		
+		//PRINT LABEL
+		twoOnePrint = new JLabel();
+		twoOnePrint.setIcon(twoOnePrintImage);
+		twoOnePrint.setBounds(129, 507, twoOnePrintImage.getIconWidth(), twoOnePrintImage.getIconHeight());
+		twoOnePrint.addMouseListener(this);
+		
+		
+		//ADDING COMPONENTS TO MAINPANE
+		mainPane.add(twoTwoReference);
+		mainPane.add(twoTwoABLabel);
+		mainPane.add(twoTwoCategories);
+		mainPane.add(twoTwoSubcategories);
+		mainPane.add(twoOneAccounts);
+		mainPane.add(twoOneRefresh);
+		mainPane.add(twoOneBalance);
+		mainPane.add(twoOnePrint);
+		mainPane.add(twoOneTitle);
+		mainPane.add(backLabel);
+		mainPane.add(exitLabel);
+		mainPane.add(wrongLabel);
+		mainPane.add(logoutLabel);
+		mainPane.add(background);
+	}
+	
+	private void cPayee() {
+		//CLEARING PANE
+		mainPane.removeAll();
+		
+		//NICKNAME TEXTFIELD
+		twoThreeNickname = new JTextField();
+		twoThreeNickname.setPreferredSize(new Dimension(150, 15));
+		twoThreeNickname.setFont(gParams.subheadingFont);
+		twoThreeNickname.setForeground(gParams.primaryLight);
+		twoThreeNickname.setBorder(gParams.noBorder);
+		twoThreeNickname.setOpaque(false);
+		twoThreeNickname.setText("nickname");
+		twoThreeNickname.setCaretColor(gParams.primaryLight);
+		twoThreeNickname.setBounds(631, 292, 150, 15);
+		
+		//ACCOUNT NUMBER TEXTFIELD
+		twoThreeAccount = new JTextField();
+		twoThreeAccount.setPreferredSize(new Dimension(130, 15));
+		twoThreeAccount.setFont(gParams.subheadingFont);
+		twoThreeAccount.setForeground(gParams.primaryLight);
+		twoThreeAccount.setBorder(gParams.noBorder);
+		twoThreeAccount.setOpaque(false);
+		twoThreeAccount.setText("XXXX");
+		twoThreeAccount.setCaretColor(gParams.primaryLight);
+		twoThreeAccount.setBounds(652, 328, 130, 15);
+		
+		//ADD PAYEE LABEL
+		twoThreeAPLabel = new JLabel();
+		twoThreeAPLabel.setIcon(twoOnePayee);
+		twoThreeAPLabel.setBounds(543, 397, twoOnePayee.getIconWidth(), twoOnePayee.getIconHeight());
+		twoThreeAPLabel.addMouseListener(this);
+
+		//WRONG LABEL
+		wrongLabel = new JLabel();
+		wrongLabel.setBounds(586, 221, wrongImage.getIconWidth(), wrongImage.getIconHeight());
+	
+		//BACKGROUND
+		ImageIcon bgImage = new ImageIcon("Graphics/C-Payee/LayoutBase.png");
+		background = new JLabel();
+		background.setIcon(bgImage);
+		background.setBounds(0, 0, gParams.frameWidth, gParams.frameHeight);
+		
+		//BACK LABEL
+		backLabel = new JLabel();
+		backLabel.setIcon(backImage);
+		backLabel.setBounds(694, 632, backImage.getIconWidth(), backImage.getIconHeight());
+		backLabel.addMouseListener(this);
+		
+		//LOGOUT LABEL
+		logoutLabel = new JLabel();
+		logoutLabel.setIcon(logoutImage);
+		logoutLabel.setBounds(150, 632, logoutImage.getIconWidth(), logoutImage.getIconHeight());
+		logoutLabel.addMouseListener(this);
+		
+		//EXIT LABEL
+		exitLabel = new JLabel();
+		exitLabel.setIcon(exitImage);
+		exitLabel.setBounds(782, 632, exitImage.getIconWidth(), exitImage.getIconHeight());
+		exitLabel.addMouseListener(this);
+		
+		//ACCOUNT TITLE LABEL
+		twoOneTitle = new JLabel();
+		twoOneTitle.setBounds(130, 355, 219, 21);
+		twoOneTitle.setFont(gParams.headingFont);
+		twoOneTitle.setForeground(gParams.whiteMain);
+		twoOneTitle.setOpaque(false);
+		twoOneTitle.setHorizontalAlignment(JLabel.CENTER);
+		twoOneTitle.setVerticalAlignment(JLabel.CENTER);
+		twoOneTitle.setText(customerTitles.get(0));
+		
+		//BALANCE LABEL
+		twoOneBalance = new JLabel();
+		twoOneBalance.setBounds(135, 445, 208, 33);
+		twoOneBalance.setFont(gParams.headingFont);
+		twoOneBalance.setForeground(gParams.whiteMain);
+		twoOneBalance.setOpaque(false);
+		twoOneBalance.setHorizontalAlignment(JLabel.CENTER);
+		twoOneBalance.setVerticalAlignment(JLabel.CENTER);
+		twoOneBalance.setText("PKR " + Double.toString(customerBalance.get(0)));
+		
+		//REFRESH LABEL
+		twoOneRefresh = new JLabel();
+		twoOneRefresh.setIcon(refreshIcon);
+		twoOneRefresh.setBounds(326, 398, refreshIcon.getIconWidth(), refreshIcon.getIconHeight());
+		twoOneRefresh.addMouseListener(this);
+		
+		//ACCOUNTS JComboBox
+		twoOneAccounts = new JComboBox<String>();
+		for(int i = 0 ; i < customerAccounts.size() ; i ++)
+		{
+			twoOneAccounts.addItem(Integer.toString(customerAccounts.get(i)));
+		}
+		twoOneAccounts.setOpaque(true);
+		twoOneAccounts.setFont(gParams.normalFont);
+		twoOneAccounts.setForeground(gParams.whiteMain);
+		twoOneAccounts.setBackground(gParams.backgroundBlue);
+		twoOneAccounts.setBounds(203, 395, 100, 20);
+		removeBorder(twoOneAccounts);
+		
+		//PRINT LABEL
+		twoOnePrint = new JLabel();
+		twoOnePrint.setIcon(twoOnePrintImage);
+		twoOnePrint.setBounds(129, 507, twoOnePrintImage.getIconWidth(), twoOnePrintImage.getIconHeight());
+		twoOnePrint.addMouseListener(this);
+		
+		
+		//ADDING COMPONENTS TO MAINPANE
+		mainPane.add(twoThreeNickname);
+		mainPane.add(twoThreeAPLabel);
+		mainPane.add(twoThreeAccount);
+		mainPane.add(twoOneAccounts);
+		mainPane.add(twoOneRefresh);
+		mainPane.add(twoOneBalance);
+		mainPane.add(twoOnePrint);
+		mainPane.add(twoOneTitle);
+		mainPane.add(wrongLabel);
+		mainPane.add(exitLabel);
+		mainPane.add(backLabel);
+		mainPane.add(logoutLabel);
+		mainPane.add(background);
+	}
+	
+	private void cBillPayment() {
+		//CLEARING PANE
+		mainPane.removeAll();
+		
+		billerNames = new ArrayList<String>();
+		referenceNumbers = new ArrayList<String>();
+		
+		int response = custProcessing.fetchUsersBillers(billerNames, referenceNumbers);
+		
+		System.out.println(billerNames);
+		
+		if(billerNames.size() == 0)
+		{
+			softwareState = 22;
+			cBiller();
+			return;
+		}
+		
+		//BILLERS COMBO BOX
+		twoFourBillers = new JComboBox<String>();
+		for(int i = 0 ; i < billerNames.size() ; i ++)
+		{
+			twoFourBillers.addItem(billerNames.get(i) + "-" + referenceNumbers.get(i));
+		}
+		twoFourBillers.setOpaque(true);
+		twoFourBillers.setFont(gParams.normalFont);
+		twoFourBillers.setForeground(gParams.whiteMain);
+		twoFourBillers.setBackground(gParams.backgroundBlue);
+		twoFourBillers.setBounds(596, 263, 157, 20);
+		twoFourBillers.addActionListener(this);
+ 		removeBorder(twoFourBillers);
+ 		
+ 		//AMOUNT TEXTFIELD
+ 		twoFourAmount = new JTextField();
+ 		twoFourAmount.setPreferredSize(new Dimension(100 , 15));
+ 		twoFourAmount.setFont(gParams.subheadingFont);
+ 		twoFourAmount.setForeground(gParams.whiteMain);
+ 		twoFourAmount.setBorder(gParams.noBorder);
+ 		twoFourAmount.setOpaque(false);
+ 		twoFourAmount.setText("XXXX");
+ 		twoFourAmount.setCaretColor(gParams.primaryLight);
+ 		twoFourAmount.setBounds(596, 324, 100 , 15);
+ 		
+
+		//WRONG LABEL
+		wrongLabel = new JLabel();
+		wrongLabel.setBounds(586, 221, wrongImage.getIconWidth(), wrongImage.getIconHeight());
+	
+ 		//SEND LABEL
+ 		twoFourSLabel = new JLabel();
+ 		twoFourSLabel.setIcon(twoFourSendPayment);
+ 		twoFourSLabel.setBounds(526, 396, twoFourSendPayment.getIconWidth(), twoFourSendPayment.getIconHeight());
+ 		twoFourSLabel.addMouseListener(this);
+		
+		//BACKGROUND
+		ImageIcon bgImage = new ImageIcon("Graphics/C-BillPayment/LayoutBase.png");
+		background = new JLabel();
+		background.setIcon(bgImage);
+		background.setBounds(0, 0, gParams.frameWidth, gParams.frameHeight);
+		
+		//BACK LABEL
+		backLabel = new JLabel();
+		backLabel.setIcon(backImage);
+		backLabel.setBounds(694, 632, backImage.getIconWidth(), backImage.getIconHeight());
+		backLabel.addMouseListener(this);
+		
+		//LOGOUT LABEL
+		logoutLabel = new JLabel();
+		logoutLabel.setIcon(logoutImage);
+		logoutLabel.setBounds(150, 632, logoutImage.getIconWidth(), logoutImage.getIconHeight());
+		logoutLabel.addMouseListener(this);
+		
+		//EXIT LABEL
+		exitLabel = new JLabel();
+		exitLabel.setIcon(exitImage);
+		exitLabel.setBounds(782, 632, exitImage.getIconWidth(), exitImage.getIconHeight());
+		exitLabel.addMouseListener(this);
+		
+		//ACCOUNT TITLE LABEL
+		twoOneTitle = new JLabel();
+		twoOneTitle.setBounds(130, 355, 219, 21);
+		twoOneTitle.setFont(gParams.headingFont);
+		twoOneTitle.setForeground(gParams.whiteMain);
+		twoOneTitle.setOpaque(false);
+		twoOneTitle.setHorizontalAlignment(JLabel.CENTER);
+		twoOneTitle.setVerticalAlignment(JLabel.CENTER);
+		twoOneTitle.setText(customerTitles.get(0));
+		
+		//BALANCE LABEL
+		twoOneBalance = new JLabel();
+		twoOneBalance.setBounds(135, 445, 208, 33);
+		twoOneBalance.setFont(gParams.headingFont);
+		twoOneBalance.setForeground(gParams.whiteMain);
+		twoOneBalance.setOpaque(false);
+		twoOneBalance.setHorizontalAlignment(JLabel.CENTER);
+		twoOneBalance.setVerticalAlignment(JLabel.CENTER);
+		twoOneBalance.setText("PKR " + Double.toString(customerBalance.get(0)));
+		
+		//REFRESH LABEL
+		twoOneRefresh = new JLabel();
+		twoOneRefresh.setIcon(refreshIcon);
+		twoOneRefresh.setBounds(326, 398, refreshIcon.getIconWidth(), refreshIcon.getIconHeight());
+		twoOneRefresh.addMouseListener(this);
+		
+		//ACCOUNTS JComboBox
+		twoOneAccounts = new JComboBox<String>();
+		for(int i = 0 ; i < customerAccounts.size() ; i ++)
+		{
+			twoOneAccounts.addItem(Integer.toString(customerAccounts.get(i)));
+		}
+		twoOneAccounts.setOpaque(true);
+		twoOneAccounts.setFont(gParams.normalFont);
+		twoOneAccounts.setForeground(gParams.whiteMain);
+		twoOneAccounts.setBackground(gParams.backgroundBlue);
+		twoOneAccounts.setBounds(203, 395, 100, 20);
+		removeBorder(twoOneAccounts);
+		
+		//PRINT LABEL
+		twoOnePrint = new JLabel();
+		twoOnePrint.setIcon(twoOnePrintImage);
+		twoOnePrint.setBounds(129, 507, twoOnePrintImage.getIconWidth(), twoOnePrintImage.getIconHeight());
+		twoOnePrint.addMouseListener(this);
+		
+		
+		//ADDING COMPONENTS TO MAINPANE
+		mainPane.add(twoFourAmount);
+		mainPane.add(twoFourSLabel);
+		mainPane.add(twoFourBillers);
+		mainPane.add(twoOneAccounts);
+		mainPane.add(twoOneRefresh);
+		mainPane.add(twoOneBalance);
+		mainPane.add(twoOnePrint);
+		mainPane.add(twoOneTitle);
+		mainPane.add(wrongLabel);
+		mainPane.add(exitLabel);
+		mainPane.add(backLabel);
+		mainPane.add(logoutLabel);
+		mainPane.add(background);
+	}
+	
+	private void cTransfer() {
+		//CLEARING PANE
+		mainPane.removeAll();
+		
+		billerNames = new ArrayList<String>();
+		referenceNumbers = new ArrayList<String>();
+		customerLimits = new ArrayList<Double>();
+		
+		int response = custProcessing.fetchUsersPayees(billerNames, referenceNumbers);
+		
+		custProcessing.FetchUserAccountandLimits(customerAccounts, customerLimits);
+		
+		if(billerNames.size() == 0)
+		{
+			softwareState = 23;
+			cPayee();
+			return;
+		}
+		
+		//LIMIT LABEL
+		twoFiveLimit = new JLabel();
+		twoFiveLimit.setBounds(662, 355, 100, 13);
+		twoFiveLimit.setFont(gParams.normalFont);
+		twoFiveLimit.setForeground(gParams.whiteSecondary);
+		twoFiveLimit.setOpaque(false);
+		twoFiveLimit.setHorizontalAlignment(JLabel.LEFT);
+		twoFiveLimit.setVerticalAlignment(JLabel.CENTER);
+		twoFiveLimit.setText(Double.toString(customerLimits.get(twoOneAccounts.getSelectedIndex())));
+		
+		
+		//BILLERS COMBO BOX
+		twoFourBillers = new JComboBox<String>();
+		for(int i = 0 ; i < billerNames.size() ; i ++)
+		{
+			twoFourBillers.addItem(billerNames.get(i) + "-" + referenceNumbers.get(i));
+		}
+		twoFourBillers.setOpaque(true);
+		twoFourBillers.setFont(gParams.normalFont);
+		twoFourBillers.setForeground(gParams.whiteMain);
+		twoFourBillers.setBackground(gParams.backgroundBlue);
+		twoFourBillers.setBounds(596, 263, 157, 20);
+		twoFourBillers.addActionListener(this);
+ 		removeBorder(twoFourBillers);
+ 		
+ 		//AMOUNT TEXTFIELD
+ 		twoFourAmount = new JTextField();
+ 		twoFourAmount.setPreferredSize(new Dimension(100 , 15));
+ 		twoFourAmount.setFont(gParams.subheadingFont);
+ 		twoFourAmount.setForeground(gParams.whiteMain);
+ 		twoFourAmount.setBorder(gParams.noBorder);
+ 		twoFourAmount.setOpaque(false);
+ 		twoFourAmount.setText("XXXX");
+ 		twoFourAmount.setCaretColor(gParams.primaryLight);
+ 		twoFourAmount.setBounds(596, 324, 100 , 15);
+
+		//WRONG LABEL
+		wrongLabel = new JLabel();
+		wrongLabel.setBounds(586, 221, wrongImage.getIconWidth(), wrongImage.getIconHeight());
+	
+ 		//SEND LABEL
+ 		twoFourSLabel = new JLabel();
+ 		twoFourSLabel.setIcon(twoFourSendPayment);
+ 		twoFourSLabel.setBounds(526, 396, twoFourSendPayment.getIconWidth(), twoFourSendPayment.getIconHeight());
+ 		twoFourSLabel.addMouseListener(this);
+		
+		//BACKGROUND
+		ImageIcon bgImage = new ImageIcon("Graphics/C-Funds/LayoutBase.png");
+		background = new JLabel();
+		background.setIcon(bgImage);
+		background.setBounds(0, 0, gParams.frameWidth, gParams.frameHeight);
+		
+		//BACK LABEL
+		backLabel = new JLabel();
+		backLabel.setIcon(backImage);
+		backLabel.setBounds(694, 632, backImage.getIconWidth(), backImage.getIconHeight());
+		backLabel.addMouseListener(this);
+		
+		//LOGOUT LABEL
+		logoutLabel = new JLabel();
+		logoutLabel.setIcon(logoutImage);
+		logoutLabel.setBounds(150, 632, logoutImage.getIconWidth(), logoutImage.getIconHeight());
+		logoutLabel.addMouseListener(this);
+		
+		//EXIT LABEL
+		exitLabel = new JLabel();
+		exitLabel.setIcon(exitImage);
+		exitLabel.setBounds(782, 632, exitImage.getIconWidth(), exitImage.getIconHeight());
+		exitLabel.addMouseListener(this);
+		
+		//ACCOUNT TITLE LABEL
+		twoOneTitle = new JLabel();
+		twoOneTitle.setBounds(130, 355, 219, 21);
+		twoOneTitle.setFont(gParams.headingFont);
+		twoOneTitle.setForeground(gParams.whiteMain);
+		twoOneTitle.setOpaque(false);
+		twoOneTitle.setHorizontalAlignment(JLabel.CENTER);
+		twoOneTitle.setVerticalAlignment(JLabel.CENTER);
+		twoOneTitle.setText(customerTitles.get(0));
+		
+		//BALANCE LABEL
+		twoOneBalance = new JLabel();
+		twoOneBalance.setBounds(135, 445, 208, 33);
+		twoOneBalance.setFont(gParams.headingFont);
+		twoOneBalance.setForeground(gParams.whiteMain);
+		twoOneBalance.setOpaque(false);
+		twoOneBalance.setHorizontalAlignment(JLabel.CENTER);
+		twoOneBalance.setVerticalAlignment(JLabel.CENTER);
+		twoOneBalance.setText("PKR " + Double.toString(customerBalance.get(0)));
+		
+		//REFRESH LABEL
+		twoOneRefresh = new JLabel();
+		twoOneRefresh.setIcon(refreshIcon);
+		twoOneRefresh.setBounds(326, 398, refreshIcon.getIconWidth(), refreshIcon.getIconHeight());
+		twoOneRefresh.addMouseListener(this);
+		
+		//ACCOUNTS JComboBox
+		twoOneAccounts = new JComboBox<String>();
+		for(int i = 0 ; i < customerAccounts.size() ; i ++)
+		{
+			twoOneAccounts.addItem(Integer.toString(customerAccounts.get(i)));
+		}
+		twoOneAccounts.setOpaque(true);
+		twoOneAccounts.setFont(gParams.normalFont);
+		twoOneAccounts.setForeground(gParams.whiteMain);
+		twoOneAccounts.setBackground(gParams.backgroundBlue);
+		twoOneAccounts.setBounds(203, 395, 100, 20);
+		removeBorder(twoOneAccounts);
+		
+		//PRINT LABEL
+		twoOnePrint = new JLabel();
+		twoOnePrint.setIcon(twoOnePrintImage);
+		twoOnePrint.setBounds(129, 507, twoOnePrintImage.getIconWidth(), twoOnePrintImage.getIconHeight());
+		twoOnePrint.addMouseListener(this);
+		
+		
+		//ADDING COMPONENTS TO MAINPANE
+		mainPane.add(twoFiveLimit);
+		mainPane.add(twoFourAmount);
+		mainPane.add(twoFourSLabel);
+		mainPane.add(twoFourBillers);
+		mainPane.add(twoOneAccounts);
+		mainPane.add(twoOneRefresh);
+		mainPane.add(twoOneBalance);
+		mainPane.add(twoOnePrint);
+		mainPane.add(twoOneTitle);
+		mainPane.add(wrongLabel);
+		mainPane.add(exitLabel);
+		mainPane.add(backLabel);
+		mainPane.add(logoutLabel);
 		mainPane.add(background);
 	}
 	private void mLogin() {
@@ -1544,6 +2365,26 @@ public class GUI implements MouseListener, ActionListener{
 		mainPane.add(backLabel);
 		mainPane.add(background);
 	}
+	private void printStatement() {
+		JFileChooser fileChooser = new JFileChooser();
+		
+		int response = fileChooser.showSaveDialog(null);
+		
+		if(response == JFileChooser.APPROVE_OPTION)
+		{
+			String filename = fileChooser.getSelectedFile().getAbsolutePath().toString();
+		    if (!filename.endsWith(".xls"))
+		        filename += ".xls";
+		    
+		    int index = twoOneAccounts.getSelectedIndex();
+		    
+		    int accNum = customerAccounts.get(index);
+		    double closingBalance = customerBalance.get(index);
+		    
+		    custProcessing.printStatement(filename, accNum, closingBalance);
+			//CALL FUNCTION
+		}
+	}
 	//USEFUL METHODS
 	private ImageIcon rescale(ImageIcon image, int x, int y) {
 		Image imageHolder = image.getImage();
@@ -1602,6 +2443,344 @@ public class GUI implements MouseListener, ActionListener{
 			{
 				softwareState = 30;
 				mLogin();
+			}
+			else if(e.getSource() == oneCLabel)
+			{
+				softwareState = 20;
+				cLogin();
+			}
+		}
+		else if(softwareState == 20)
+		{
+			if(e.getSource() == exitLabel)
+			{
+				System.exit(0);
+			}
+			else if(e.getSource() == backLabel)
+			{
+				softwareState = 1;
+				stateOne();
+			}
+			else if(e.getSource() == twoZeroLLabel)
+			{
+				twoZeroLLabel.setIcon(twoZeroLoginCheck);
+				ignore = 20;
+				
+				//DO LOGIN CHECK HERE
+				String inputUsername = twoZeroUsername.getText();
+				char[] inputPassword = twoZeroPassword.getPassword();
+				
+				int response = custLogin.customerLogin(inputUsername, inputPassword);
+				
+				if(response == 0)
+				{
+					twoZeroILabel.setIcon(incorrectImage);
+					twoZeroLLabel.setIcon(twoZeroLoginHover);
+				}
+				else
+				{
+					softwareState = 21;
+					custProcessing.setCustID(response);
+					//custProcessing.fet
+					custProcessing.fetchCustomerAccounts(customerTitles, customerAccounts, customerBalance);
+					cMain();
+					System.out.printf("Login Successful!\nID: %d\n", response);
+				}
+				
+				ignore = -1;
+				//END
+			}
+		}
+		else if(softwareState == 21)
+		{
+			if(e.getSource() == exitLabel)
+			{
+				System.exit(0);
+			}
+			else if(e.getSource() == logoutLabel)
+			{
+				softwareState = 20;
+				cLogin();
+			}
+			else if(e.getSource() == twoOneRefresh)
+			{
+				int index = twoOneAccounts.getSelectedIndex();
+				custProcessing.fetchCustomerAccounts(customerTitles, customerAccounts, customerBalance);
+				twoOneBalance.setText("PKR " + Double.toString(customerBalance.get(index)));
+				twoOneTitle.setText(customerTitles.get(index));
+			}
+			else if(e.getSource() == twoOneABLabel)
+			{
+				softwareState = 22;
+				cBiller();
+			}
+			else if(e.getSource() == twoOneAPLabel)
+			{
+				softwareState = 23;
+				cPayee();
+			}
+			else if(e.getSource() == twoOneBLabel)
+			{
+				softwareState = 24;
+				cBillPayment();
+			}
+			else if(e.getSource() == twoOneFLabel)
+			{
+				softwareState = 25;
+				cTransfer();
+			}
+			else if(e.getSource() == twoOnePrint)
+			{
+				printStatement();
+			}
+		}
+		else if(softwareState == 22)
+		{
+			if(e.getSource() == exitLabel)
+			{
+				System.exit(0);
+			}
+			else if(e.getSource() == logoutLabel)
+			{
+				softwareState = 20;
+				cLogin();
+			}
+			else if(e.getSource() == backLabel)
+			{
+				softwareState = 21;
+				cMain();
+			}
+			else if(e.getSource() == twoOneRefresh)
+			{
+				int index = twoOneAccounts.getSelectedIndex();
+				custProcessing.fetchCustomerAccounts(customerTitles, customerAccounts, customerBalance);
+				twoOneBalance.setText("PKR " + Double.toString(customerBalance.get(index)));
+				twoOneTitle.setText(customerTitles.get(index));
+			}
+			else if(e.getSource() == twoTwoABLabel)
+			{
+				wrongLabel.setIcon(null);
+				String subcategory = (String) twoTwoSubcategories.getSelectedItem();
+				String referenceNumber = twoTwoReference.getText();
+				
+				try {
+					int tryInt = Integer.parseInt(referenceNumber);
+					int response = custProcessing.addUserBiller(subcategory, referenceNumber);
+					//System.out.println("BACKEND CALL HERE " + category + " " + subcategory );
+					
+					if(response == 0)
+					{
+						wrongLabel.setIcon(wrongImage);
+					}
+					else
+					{
+						twoTwoABLabel.setIcon(twoTwoBillerAdded);
+					}
+				}
+				catch(Exception ee) {
+					wrongLabel.setIcon(wrongImage);
+				}
+			}
+			else if(e.getSource() == twoOnePrint)
+			{
+				printStatement();
+			}
+		}
+		else if(softwareState == 23)
+		{
+			if(e.getSource() == exitLabel)
+			{
+				System.exit(0);
+			}
+			else if(e.getSource() == twoOnePrint)
+			{
+				printStatement();
+			}
+			else if(e.getSource() == logoutLabel)
+			{
+				softwareState = 20;
+				cLogin();
+			}
+			else if(e.getSource() == backLabel)
+			{
+				softwareState = 21;
+				cMain();
+			}
+			else if(e.getSource() == twoOneRefresh)
+			{
+				int index = twoOneAccounts.getSelectedIndex();
+				custProcessing.fetchCustomerAccounts(customerTitles, customerAccounts, customerBalance);
+				twoOneBalance.setText("PKR " + Double.toString(customerBalance.get(index)));
+				twoOneTitle.setText(customerTitles.get(index));
+			}
+			else if(e.getSource() == twoThreeAPLabel)
+			{
+				wrongLabel.setIcon(null);
+				
+				int response;
+				
+				String Nickname = twoThreeNickname.getText();
+				String Account = twoThreeAccount.getText();
+				
+				try {
+					response = custProcessing.addUserPayee(Nickname, Account);
+					
+					if(response == 0)
+					{
+						wrongLabel.setIcon(wrongImage);
+					}
+					else
+					{
+						twoThreeAPLabel.setIcon(twoThreePayeeAdded);
+					}
+				}
+				catch (Exception ee) {
+					wrongLabel.setIcon(wrongImage);
+				}
+				
+				//System.out.println("BACKEND CALL");
+			}
+		}
+		else if(softwareState == 24)
+		{
+			if(e.getSource() == exitLabel)
+			{
+				System.exit(0);
+			}
+			else if(e.getSource() == twoOnePrint)
+			{
+				printStatement();
+			}
+			else if(e.getSource() == logoutLabel)
+			{
+				softwareState = 20;
+				cLogin();
+			}
+			else if(e.getSource() == backLabel)
+			{
+				softwareState = 21;
+				cMain();
+			}
+			else if(e.getSource() == twoFourSLabel)
+			{
+				wrongLabel.setIcon(null);
+				try {
+					int index = twoOneAccounts.getSelectedIndex();
+					Double balance = customerBalance.get(index);
+					Double payment = Double.parseDouble(twoFourAmount.getText());
+					
+					if(balance < payment)
+					{
+						wrongLabel.setIcon(wrongImage);
+						//System.out.println("Error");
+					}
+					else
+					{
+						int index2 = twoFourBillers.getSelectedIndex();
+						String billerName = billerNames.get(index2);
+						String referenceNumber = referenceNumbers.get(index2);
+						String accNum = (String)twoOneAccounts.getSelectedItem();
+						String accountBalance = Double.toString(balance);
+						String amount = Double.toString(payment);
+						int response = custProcessing.addBillPayment(billerName, referenceNumber,
+												accNum, amount, accountBalance);
+						if(response == 1)
+						{
+							twoFourSLabel.setIcon(twoFourSent);
+							int index3 = twoOneAccounts.getSelectedIndex();
+							custProcessing.fetchCustomerAccounts(customerTitles, customerAccounts, customerBalance);
+							twoOneBalance.setText("PKR " + Double.toString(customerBalance.get(index3)));
+							twoOneTitle.setText(customerTitles.get(index3));
+						}
+							
+						//System.out.println("Successful");
+					}
+					//System.out.println("BACKEND FUNCTION");
+				}
+				catch (Exception ee) {
+					wrongLabel.setIcon(wrongImage);
+				}
+			}
+			else if(e.getSource() == twoOneRefresh)
+			{
+				int index = twoOneAccounts.getSelectedIndex();
+				custProcessing.fetchCustomerAccounts(customerTitles, customerAccounts, customerBalance);
+				twoOneBalance.setText("PKR " + Double.toString(customerBalance.get(index)));
+				twoOneTitle.setText(customerTitles.get(index));
+			}
+		}
+		else if(softwareState == 25)
+		{
+			if(e.getSource() == exitLabel)
+			{
+				System.exit(0);
+			}
+			else if(e.getSource() == twoOnePrint)
+			{
+				printStatement();
+			}
+			else if(e.getSource() == logoutLabel)
+			{
+				softwareState = 20;
+				cLogin();
+			}
+			else if(e.getSource() == backLabel)
+			{
+				softwareState = 21;
+				cMain();
+			}
+			else if(e.getSource() == twoFourSLabel)
+			{
+				wrongLabel.setIcon(null);
+				try {
+					int index = twoOneAccounts.getSelectedIndex();
+					Double balance = customerBalance.get(index);
+					Double payment = Double.parseDouble(twoFourAmount.getText());
+					Double limit = customerLimits.get(twoOneAccounts.getSelectedIndex());
+					
+					if(balance < payment)
+					{
+						wrongLabel.setIcon(wrongImage);
+						//System.out.println("Error");
+					}
+					else if(limit < payment)
+					{
+						wrongLabel.setIcon(wrongImage);
+					}
+					else
+					{
+						int index2 = twoFourBillers.getSelectedIndex();
+						String referenceNumber = referenceNumbers.get(index2);
+						String accNum = (String)twoOneAccounts.getSelectedItem();
+						String amount = Double.toString(payment);
+						int response = custProcessing.addTransaction(accNum, referenceNumber,amount);
+						if(response == 1)
+						{
+							twoFourSLabel.setIcon(twoFourSent);
+							int index3 = twoOneAccounts.getSelectedIndex();
+							custProcessing.fetchCustomerAccounts(customerTitles, customerAccounts, customerBalance);
+							custProcessing.FetchUserAccountandLimits(customerAccounts, customerLimits);
+							twoOneBalance.setText("PKR " + Double.toString(customerBalance.get(index3)));
+							twoOneTitle.setText(customerTitles.get(index3));
+							twoFiveLimit.setText(Double.toString(customerLimits.get(twoOneAccounts.getSelectedIndex())));
+						}
+							
+						//System.out.println("Successful");
+					}
+					//System.out.println("BACKEND FUNCTION");
+				}
+				catch (Exception ee) {
+					wrongLabel.setIcon(wrongImage);
+				}
+			}
+			else if(e.getSource() == twoOneRefresh)
+			{
+				int index = twoOneAccounts.getSelectedIndex();
+				custProcessing.fetchCustomerAccounts(customerTitles, customerAccounts, customerBalance);
+				custProcessing.FetchUserAccountandLimits(customerAccounts, customerLimits);
+				twoOneBalance.setText("PKR " + Double.toString(customerBalance.get(index)));
+				twoOneTitle.setText(customerTitles.get(index));
+				twoFiveLimit.setText(Double.toString(customerLimits.get(twoOneAccounts.getSelectedIndex())));
 			}
 		}
 		else if(softwareState == 30)

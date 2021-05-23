@@ -67,3 +67,88 @@ insert into account(owner,balance,status,type,lim,custid) values ('ONI-CHAN',100
 insert into account(owner,balance,status,type,lim,custid) values ('LION',100000.97,'active','student',7000,3);
 
 select * from manager where username = 'nami-chan' and password = password('egtordosenado');
+
+-------------------------------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------------------------------
+
+						Sprint 2
+-------------------------------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------------------------------
+
+
+CREATE TABLE Payee (
+	custId INT,
+	name varchar(50),
+	Account INT(10) UNSIGNED, 
+	FOREIGN KEY (Account) REFERENCES account(number),
+	FOREIGN KEY (custId) REFERENCES customer(id)
+);
+
+CREATE TABLE category 
+(
+    id int AUTO_INCREMENT PRIMARY KEY,
+    type VARCHAR(30) NOT NULL UNIQUE
+);
+
+insert into category(type) values ("TELCO");
+insert into category(type) values ("UTILITY");
+insert into category(type) values ("STUDENT FEES");
+
+CREATE TABLE BILLER
+(
+	name VARCHAR(60) not NULL UNIQUE,
+	category_id int NOT NULL,
+	FOREIGN KEY(category_id) REFERENCES category(id)
+);
+
+insert into biller(name,category_id) values ("JAZZ",1);
+insert into biller(name,category_id) values ("UFONE",1) ;
+insert into biller(name,category_id) values ("TELENOR",1);
+insert into biller(name,category_id) values ("ZONG",1);
+
+insert into biller(name,category_id) values ("ELECTRICITY",2);
+insert into biller(name,category_id) values ("GAS",2) ;
+insert into biller(name,category_id) values ("PTCL",2);
+insert into biller(name,category_id) values ("WATER",2);
+
+insert into biller(name,category_id) values ("FAST,ISB",3);
+insert into biller(name,category_id) values ("FAST,FSD",3);
+insert into biller(name,category_id) values ("FAST,LHR",3);
+insert into biller(name,category_id) values ("FAST,KHR",3);
+insert into biller(name,category_id) values ("FAST,PHR",3); 
+
+CREATE TABLE USERS_BILLER
+(
+	id int AUTO_INCREMENT PRIMARY KEY,
+	cust_id int NOT NULL,
+	name VARCHAR(60) NOT NULL,
+	reference_number int NOT NULL,
+	FOREIGN KEY(cust_id) REFERENCES customer(id),
+	FOREIGN KEY(name) REFERENCES BILLER(name)
+);
+
+CREATE TABLE billpayment
+( 	
+	bill_id int, 
+ 	DATEPAYMENT DATETIME DEFAULT CURRENT_TIMESTAMP,
+	amount double,
+	acc INT(10) UNSIGNED,
+	FOREIGN KEY(acc) REFERENCES Account(number),
+	FOREIGN KEY(bill_id) REFERENCES USERS_BILLER(id)
+);
+
+CREATE TABLE TRANSACTION
+(
+	credit INT(10) UNSIGNED,
+	debit INT(10) UNSIGNED,
+	DATEPAYMENT DATETIME DEFAULT CURRENT_TIMESTAMP,
+	amount double,
+	FOREIGN KEY(credit) REFERENCES Account(number),
+	FOREIGN KEY(debit) REFERENCES Account(number)
+);
