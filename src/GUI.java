@@ -209,6 +209,7 @@ public class GUI implements MouseListener, ActionListener{
 	ImageIcon twoOneFundsHover = new ImageIcon("Graphics/C-Main/FUNDS-HOVER.png");
 	//STATE 22 - C-BILLER
 	ImageIcon twoTwoBillerAdded = new ImageIcon("Graphics/C-Biller/BILLERADDED.png");
+	ImageIcon twoTwoBillerInvalid = new ImageIcon("Graphics/C-Biller/INVALID.png");
 	//STATE 23 - C-PAYEE
 	ImageIcon twoThreePayeeAdded = new ImageIcon("Graphics/C-Payee/PAYEEADDED.png");
 	//STATE 24 - C-BILL-PAYMENT
@@ -566,7 +567,7 @@ public class GUI implements MouseListener, ActionListener{
 
 		//WRONG LABEL
 		wrongLabel = new JLabel();
-		wrongLabel.setBounds(586, 221, wrongImage.getIconWidth(), wrongImage.getIconHeight());
+		wrongLabel.setBounds(548, 221, twoTwoBillerInvalid.getIconWidth(), twoTwoBillerInvalid.getIconHeight());
 		
 		//ADD BILLER LABEL
 		twoTwoABLabel = new JLabel();
@@ -1074,6 +1075,7 @@ public class GUI implements MouseListener, ActionListener{
 		mainPane.add(logoutLabel);
 		mainPane.add(background);
 	}
+	
 	private void mLogin() {
 		//CLEARING PANE
 		mainPane.removeAll();
@@ -2365,6 +2367,7 @@ public class GUI implements MouseListener, ActionListener{
 		mainPane.add(backLabel);
 		mainPane.add(background);
 	}
+	
 	private void printStatement() {
 		JFileChooser fileChooser = new JFileChooser();
 		
@@ -2407,8 +2410,7 @@ public class GUI implements MouseListener, ActionListener{
 		
 		return image;
 	}
-		
-		
+				
 	private void removeBorder(JComboBox combobox) {
 		for (int i = 0; i < combobox.getComponentCount(); i++) 
 		{
@@ -2425,6 +2427,7 @@ public class GUI implements MouseListener, ActionListener{
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
 	}
+	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
@@ -2579,15 +2582,16 @@ public class GUI implements MouseListener, ActionListener{
 					}
 					if(response == 0)
 					{
-						wrongLabel.setIcon(wrongImage);
+						wrongLabel.setIcon(twoTwoBillerInvalid);
 					}
 					else
 					{
 						twoTwoABLabel.setIcon(twoTwoBillerAdded);
+						wrongLabel.setIcon(null);
 					}
 				}
 				catch(Exception ee) {
-					wrongLabel.setIcon(wrongImage);
+					wrongLabel.setIcon(twoTwoBillerInvalid);
 				}
 			}
 			else if(e.getSource() == twoOnePrint)
@@ -3746,7 +3750,6 @@ public class GUI implements MouseListener, ActionListener{
 		}
 	}
 
-	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
