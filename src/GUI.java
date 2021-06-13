@@ -2622,6 +2622,11 @@ public class GUI implements MouseListener, ActionListener{
 				softwareState = 20;
 				cLogin();
 			}
+			else if(e.getSource() == oneALabel)
+			{
+				softwareState = 40;
+				aLogin();
+			}
 		}
 		else if(softwareState == 20)
 		{
@@ -3879,6 +3884,14 @@ public class GUI implements MouseListener, ActionListener{
 				threeNineALabel.setIcon(threeTwoAddHover);
 			}
 		}
+		else if(softwareState == 40)
+		{
+			if(e.getSource() == threeZeroLLabel && ignore != 30)
+			{
+				threeZeroLLabel.setIcon(threeZeroLoginHover);
+			}
+		}
+		
 	}
 
 	@Override
