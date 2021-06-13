@@ -27,6 +27,7 @@ public class GUI implements MouseListener, ActionListener{
 	BusinessAccountManagement accManagement;
 	BusinessCustomerLogin custLogin;
 	BusinessCustomerProcessing custProcessing;
+	BusinessAccountant businessAccountant;
 	
 	//IGNORED VARIABLE
 	int ignore = -1;
@@ -52,6 +53,10 @@ public class GUI implements MouseListener, ActionListener{
 	//STATE 38 - M-A-MODIFY		- mAModify()
 	//STATE 38 - M-A-DELETE		- mADelete()
 	//STATE 39 - M-A-ADD		- mAAdd()
+	//STATE 40 - A-LOGIN		- aLogin()
+	//STATE 41 - A-MAIN			- aMain()
+	//STATE 42 - A-WITHDRAW		- aWithdraw()
+	//STATE 43 - A-DEPOSIT		- aDeposit()
 	//FRAMES
 	JFrame welcomePage;
 		
@@ -132,6 +137,9 @@ public class GUI implements MouseListener, ActionListener{
 	JLabel threeEightMLabel;
 	//STATE 381- M-A-DELETE
 	JLabel threeEightOneDLabel;
+	//STATE 41 - A-MAIN
+	JLabel fourOneDebit;
+	JLabel fourOneCredit;
 	
 	//TEXTFIELDS
 	//STATE 20 - C-LOGIN
@@ -169,6 +177,8 @@ public class GUI implements MouseListener, ActionListener{
 	JTextField threeSevenTime;
 	JTextField threeSevenType;
 	JTextField threeSevenLimit;
+	//STATE 41 - A-MAIN
+	JTextField fourOneAmount;
 	//IMAGES
 	//ICONS
 	ImageIcon iconDark = new ImageIcon("Graphics/Icons/Dark_50px.png");
@@ -183,6 +193,8 @@ public class GUI implements MouseListener, ActionListener{
 	ImageIcon searchIcon = new ImageIcon("Graphics/SEARCHICON.png");
 	ImageIcon wrongImage = new ImageIcon("Graphics/WRONG.png");
 	ImageIcon refreshIcon = new ImageIcon("Graphics/REFRESHICON.png");
+	ImageIcon creditImage = new ImageIcon("Graphics/CREDIT.png");
+	ImageIcon debitImage = new ImageIcon("Graphics/DEBIT.png");
 	//STATE ONE
 	ImageIcon oneCustomer = new ImageIcon("Graphics/FirstPage/CUSTOMER.png");
 	ImageIcon oneCustomerHover = new ImageIcon("Graphics/FirstPage/CUSTOMER-HOVER.png");
@@ -262,6 +274,7 @@ public class GUI implements MouseListener, ActionListener{
 		accManagement = new BusinessAccountManagement();
 		custLogin = new BusinessCustomerLogin();
 		custProcessing = new BusinessCustomerProcessing();
+		businessAccountant = new BusinessAccountant();
 		//SETTING CORRECT STATE
 		softwareState = 1;
 		
@@ -2388,6 +2401,163 @@ public class GUI implements MouseListener, ActionListener{
 			//CALL FUNCTION
 		}
 	}
+	private void aLogin() {
+		//CLEARING PANE
+		mainPane.removeAll();
+
+		//BACKGROUND
+		ImageIcon bgImage = new ImageIcon("Graphics/A-Login/LayoutBase.png");
+		background = new JLabel();
+		background.setIcon(bgImage);
+		background.setBounds(0, 0, gParams.frameWidth, gParams.frameHeight);
+		
+		
+		//LOGIN LABEL
+		threeZeroLLabel = new JLabel();
+		threeZeroLLabel.setIcon(threeZeroLogin);
+		threeZeroLLabel.setBounds(357, 460, threeZeroLogin.getIconWidth(), threeZeroLogin.getIconHeight());
+		threeZeroLLabel.addMouseListener(this);
+		
+		//EXIT LABEL
+		exitLabel = new JLabel();
+		exitLabel.setIcon(exitImage);
+		exitLabel.setBounds(638, 584, exitImage.getIconWidth(), exitImage.getIconHeight());
+		exitLabel.addMouseListener(this);
+		
+		//BACK LABEL
+		backLabel = new JLabel();
+		backLabel.setIcon(backImage);
+		backLabel.setBounds(292, 584, backImage.getIconWidth(), backImage.getIconHeight());
+		backLabel.addMouseListener(this);
+
+		//USERNAME TEXTFIELD
+		threeZeroUsername = new JTextField();
+		threeZeroUsername.setPreferredSize(gParams.normalField);
+		threeZeroUsername.setFont(gParams.subheadingFont);
+		threeZeroUsername.setForeground(gParams.whiteMain);
+		threeZeroUsername.setBorder(gParams.noBorder);
+		threeZeroUsername.setOpaque(false);
+		threeZeroUsername.setText("oni-chan"); 		//CHANGE THIS LATER
+		threeZeroUsername.setCaretColor(gParams.whiteMain);
+		threeZeroUsername.setBounds(359, 322, gParams.normalField.width, gParams.normalField.height);
+
+		//PASSWORD TEXTFIELD
+		threeZeroPassword = new JPasswordField("egtor", 20);	//CHANGE THIS LATER
+		threeZeroPassword.setPreferredSize(gParams.normalField);
+		threeZeroPassword.setFont(gParams.subheadingFont);
+		threeZeroPassword.setForeground(gParams.whiteMain);
+		threeZeroPassword.setBorder(gParams.noBorder);
+		threeZeroPassword.setOpaque(false);
+		threeZeroPassword.setCaretColor(gParams.whiteMain);
+		threeZeroPassword.setBounds(359, 403, gParams.normalField.width, gParams.normalField.height);
+
+		//INCORRECT MESSAGE
+		threeZeroILabel = new JLabel();
+		threeZeroILabel.setBounds(367, 542, incorrectImage.getIconWidth(), incorrectImage.getIconHeight());
+
+		
+		//ADDING COMPONENTS TO PANE
+		mainPane.add(threeZeroILabel);
+		mainPane.add(threeZeroUsername);
+		mainPane.add(threeZeroPassword);
+		mainPane.add(threeZeroLLabel);
+		mainPane.add(exitLabel);
+		mainPane.add(backLabel);
+		mainPane.add(background);
+
+	}
+	
+	private void aMain() {
+		//CLEARING PANE
+		mainPane.removeAll();
+		
+		//DEBIT LABEL
+		fourOneDebit = new JLabel();
+		fourOneDebit.setIcon(debitImage);
+		fourOneDebit.setBounds(622, 341, debitImage.getIconWidth(), debitImage.getIconHeight());
+		fourOneDebit.addMouseListener(this);
+		
+		//CREDIT LABEL
+		fourOneCredit = new JLabel();
+		fourOneCredit.setIcon(creditImage);
+		fourOneCredit.setBounds(709, 341, creditImage.getIconWidth(), creditImage.getIconHeight());
+		fourOneCredit.addMouseListener(this);
+
+		//BACKGROUND
+		ImageIcon bgImage = new ImageIcon("Graphics/A-Main/LayoutBase.png");
+		background = new JLabel();
+		background.setIcon(bgImage);
+		background.setBounds(0, 0, gParams.frameWidth, gParams.frameHeight);
+
+		//EXIT LABEL
+		exitLabel = new JLabel();
+		exitLabel.setIcon(exitImage);
+		exitLabel.setBounds(746, 584, exitImage.getIconWidth(), exitImage.getIconHeight());
+		exitLabel.addMouseListener(this);
+		
+		//LOGOUT LABEL
+		logoutLabel = new JLabel();
+		logoutLabel.setIcon(logoutImage);
+		logoutLabel.setBounds(185, 584, logoutImage.getIconWidth(), logoutImage.getIconHeight());
+		logoutLabel.addMouseListener(this);
+
+		//SEARCH LABEL
+		searchLabel = new JLabel();
+		searchLabel.setIcon(searchIcon);
+		searchLabel.setBounds(639, 290, searchIcon.getIconWidth(), searchIcon.getIconHeight());
+		searchLabel.addMouseListener(this);
+		
+		//WRONG LABEL
+		threeSevenWLabel = new JLabel();
+		threeSevenWLabel.setBounds(542, 266, wrongImage.getIconWidth(), wrongImage.getIconHeight());
+		
+		
+		//TEXTFIELDS START HERE
+		//QUERY FIELD
+		threeSevenQuery = new JTextField();
+		threeSevenQuery.setBounds(515, 299, 125, 15);
+		threeSevenQuery.setPreferredSize(new Dimension(125, 15));
+		threeSevenQuery.setFont(gParams.subheadingFont);
+		threeSevenQuery.setForeground(gParams.primaryLight);
+		threeSevenQuery.setOpaque(false);
+		threeSevenQuery.setText("XXXX");
+		threeSevenQuery.setBorder(gParams.noBorder);
+
+		//BALANCE FIELD
+		threeSevenBalance = new JTextField();
+		threeSevenBalance.setBounds(740, 299, 79, 15);
+		threeSevenBalance.setPreferredSize(new Dimension(79, 15));
+		threeSevenBalance.setFont(gParams.subheadingFont);
+		threeSevenBalance.setForeground(gParams.whiteSecondary);
+		threeSevenBalance.setOpaque(false);
+		threeSevenBalance.setText("");
+		threeSevenBalance.setEditable(false);
+		threeSevenBalance.setBorder(gParams.noBorder);
+		
+		//AMOUNT FIELD
+		fourOneAmount = new JTextField();
+		fourOneAmount.setBounds(502, 367, 97, 15);
+		fourOneAmount.setPreferredSize(new Dimension(97, 15));
+		fourOneAmount.setFont(gParams.subheadingFont);
+		fourOneAmount.setForeground(gParams.whiteSecondary);
+		fourOneAmount.setOpaque(false);
+		fourOneAmount.setText("0");
+		fourOneAmount.setEditable(true);
+		fourOneAmount.setBorder(gParams.noBorder);
+		
+		
+		//ADDING COMPONENTS TO PANE
+		mainPane.add(fourOneDebit);
+		mainPane.add(fourOneCredit);
+		mainPane.add(fourOneAmount);
+		mainPane.add(threeSevenBalance);
+		mainPane.add(threeSevenQuery);
+		mainPane.add(threeSevenWLabel);
+		mainPane.add(searchLabel);
+		mainPane.add(logoutLabel);
+		mainPane.add(exitLabel);
+		mainPane.add(background);
+	}
 	//USEFUL METHODS
 	private ImageIcon rescale(ImageIcon image, int x, int y) {
 		Image imageHolder = image.getImage();
@@ -2568,18 +2738,17 @@ public class GUI implements MouseListener, ActionListener{
 				
 				try {
 					int tryInt = Integer.parseInt(referenceNumber);
-					int response = custProcessing.addUserBiller(subcategory, referenceNumber);
-					//System.out.println("BACKEND CALL HERE " + category + " " + subcategory );
-					
+					int response = 0;
 					//Check if reference is numeric and positive
 					if(referenceNumber.matches("^[0-9]*$") && Integer.parseInt(referenceNumber) > 0 )
 					{
-					    
+						response = custProcessing.addUserBiller(subcategory, referenceNumber);
 					}
 					else
 					{
 						response = 0;
 					}
+					//System.out.println("BACKEND CALL HERE " + category + " " + subcategory );
 					if(response == 0)
 					{
 						wrongLabel.setIcon(twoTwoBillerInvalid);
@@ -3423,7 +3592,126 @@ public class GUI implements MouseListener, ActionListener{
 				threeNineALabel.setIcon(threeNineAdded);
 			}
 		}
-		
+		else if(softwareState == 40)
+		{
+			if(e.getSource() == exitLabel)
+			{
+				System.exit(0);
+			}
+			else if(e.getSource() == backLabel)
+			{
+				softwareState = 1;
+				stateOne();
+			}
+			else if(e.getSource() == threeZeroLLabel)
+			{
+				threeZeroLLabel.setIcon(threeZeroLoginCheck);
+				ignore = 30;
+				
+				//DO LOGIN CHECK HERE
+				String inputUsername = threeZeroUsername.getText();
+				char[] inputPassword = threeZeroPassword.getPassword();
+				
+				int response = businessAccountant.accountantLogin(inputUsername, inputPassword);
+				
+				if(response == 0)
+				{
+					threeZeroILabel.setIcon(incorrectImage);
+					threeZeroLLabel.setIcon(threeZeroLoginHover);
+				}
+				else
+				{
+					softwareState = 41;
+					aMain();
+					
+					//System.out.printf("Login Successful!\nID: %d\n", response);
+				}
+				
+				ignore = -1;
+				//END
+			}
+		}else if(softwareState == 41)
+		{
+			if(e.getSource() == exitLabel)
+			{
+				System.exit(0);
+			}
+			else if(e.getSource() == logoutLabel)
+			{
+				softwareState = 30;
+				aLogin();
+			}
+			else if(e.getSource() == fourOneDebit)
+			{
+				try {
+					String accNum = threeSevenQuery.getText();
+					String amount = fourOneAmount.getText();
+					
+					int response = businessAccountant.accountantDebit(accNum, amount);
+					
+					if(response == 1)
+					{
+						fourOneAmount.setText("0");
+					}
+					else
+						threeSevenWLabel.setIcon(wrongImage);
+				}
+				catch (Exception ee) {
+					threeSevenWLabel.setIcon(wrongImage);
+				}
+			}
+			else if(e.getSource() == fourOneCredit)
+			{
+				try {
+					String accNum = threeSevenQuery.getText();
+					String amount = fourOneAmount.getText();
+					
+					int response = businessAccountant.accountantCredit(accNum, amount);
+					
+					if(response == 1)
+					{
+						fourOneAmount.setText("0");
+					}
+					else
+						threeSevenWLabel.setIcon(wrongImage);
+				}
+				catch (Exception ee) {
+					threeSevenWLabel.setIcon(wrongImage);
+				}
+			}
+			else if(e.getSource() == searchLabel)
+			{
+				try {
+					String query = threeSevenQuery.getText();
+					//System.out.println("SEARCH INITIATED");
+					ArrayList<String> result = accManagement.mASearch(query);
+					
+					if(result == null)
+					{
+						threeSevenWLabel.setIcon(wrongImage);
+						threeSevenBalance.setText("");
+					}
+					else
+					{
+						if(result.get(0).equals("-1"))
+						{
+							System.out.println("DATABASE FAILED!");
+							System.exit(-1);
+						}
+						else
+						{
+							threeSevenBalance.setText(result.get(3));
+							threeSevenWLabel.setIcon(null);
+						}
+					}
+				}
+				catch (Exception ee) {
+					threeSevenWLabel.setIcon(wrongImage);
+					threeSevenBalance.setText("");
+					threeSevenQuery.setText("XXXX");
+				}
+			}
+		}
 	}
 
 	@Override
@@ -3750,6 +4038,13 @@ public class GUI implements MouseListener, ActionListener{
 			if(e.getSource() == threeNineALabel)
 			{
 				threeNineALabel.setIcon(threeTwoAdd);
+			}
+		}
+		else if(softwareState == 40)
+		{
+			if(e.getSource() == threeZeroLLabel && ignore != 30)
+			{
+				threeZeroLLabel.setIcon(threeZeroLogin);
 			}
 		}
 	}

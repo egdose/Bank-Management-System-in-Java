@@ -43,7 +43,18 @@ insert into person(name,address,contact,CNIC) values ('Alex','1179-E, Johar Heig
 
 insert into manager(PERSON_ID,username,password) values ((select id from person where CNIC = '7420-198-9871'),'nami-chan',password('egtordosenado'));
 
+CREATE TABLE accountant
+(
+	PERSON_ID int NOT NULL UNIQUE,
+	USERNAME VARCHAR(60) NOT NULL,
+	PASSWORD VARCHAR(60) NOT NULL,
+	PRIMARY KEY(USERNAME,PASSWORD),
+	FOREIGN KEY (PERSON_ID) REFERENCES PERSON(id)
+);
+
 insert into person(name,address,contact,CNIC) values ('Imran','1178-E, Johar Heights, Delhi', '0712-1837315','7420-198-7621');
+
+insert into accountant(PERSON_ID,username,password) values ((select id from person where CNIC = '7420-198-7621'),'oni-chan',password('egtor'));
 
 
 CREATE TABLE Account (
@@ -65,22 +76,6 @@ insert into account(owner,balance,status,type,lim,custid) values ('EGDOSE',10000
 insert into account(owner,balance,status,type,lim,custid) values ('ONI-CHAN',100000.97,'active','student',1000,2);
 
 insert into account(owner,balance,status,type,lim,custid) values ('LION',100000.97,'active','student',7000,3);
-
-select * from manager where username = 'nami-chan' and password = password('egtordosenado');
-
--------------------------------------------------------------------------------------------------------------
-
--------------------------------------------------------------------------------------------------------------
-
--------------------------------------------------------------------------------------------------------------
-
-						Sprint 2
--------------------------------------------------------------------------------------------------------------
-
--------------------------------------------------------------------------------------------------------------
-
--------------------------------------------------------------------------------------------------------------
-
 
 CREATE TABLE Payee (
 	custId INT,
@@ -152,3 +147,7 @@ CREATE TABLE TRANSACTION
 	FOREIGN KEY(credit) REFERENCES Account(number),
 	FOREIGN KEY(debit) REFERENCES Account(number)
 );
+
+select * from accountant where username = 'oni-chan' and password = password('egtor');
+
+select * from manager where username = 'nami-chan' and password = password('egtordosenado');
