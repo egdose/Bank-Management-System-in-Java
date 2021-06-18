@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.net.URL;
 import java.util.ArrayList;
 
 import javax.swing.AbstractButton;
@@ -180,8 +181,174 @@ public class GUI implements MouseListener, ActionListener{
 	//STATE 41 - A-MAIN
 	JTextField fourOneAmount;
 	//IMAGES
+	URL url_iconDark = Main.class.getResource("/Icons/Dark_50px.png");
+	URL url_iconWhite = Main.class.getResource("Icons/White_50px.png");
+	URL url_iconSimple = Main.class.getResource("Icons/Simple_50px.png");
+	URL url_exitImage = Main.class.getResource("/EXIT.png");
+	URL url_logoutImage = Main.class.getResource("/LOGOUT.png");
+	URL url_backImage = Main.class.getResource("/BACK.png");
+	URL url_incorrectImage = Main.class.getResource("/INCORRECT.png");
+	URL url_searchImage = Main.class.getResource("/SEARCH.png");
+	URL url_searchImageHover = Main.class.getResource("/SEARCH-HOVER.png");
+	URL url_searchIcon = Main.class.getResource("/SEARCHICON.png");
+	URL url_wrongImage = Main.class.getResource("/WRONG.png");
+	URL url_refreshIcon = Main.class.getResource("/REFRESHICON.png");
+	URL url_creditImage = Main.class.getResource("/CREDIT.png");
+	URL url_debitImage = Main.class.getResource("/DEBIT.png");
+	//STATE ONE
+	URL url_oneCustomer = Main.class.getResource("/FirstPage/CUSTOMER.png");
+	URL url_oneCustomerHover = Main.class.getResource("/FirstPage/CUSTOMER-HOVER.png");
+
+	URL url_oneBankManager = Main.class.getResource("/FirstPage/BANK MANAGER.png");
+	URL url_oneBankManagerHover = Main.class.getResource("/FirstPage/BANK MANAGER-HOVER.png");
+
+	URL url_oneAccountant = Main.class.getResource("/FirstPage/ACCOUNTANT.png");
+	URL url_oneAccountantHover = Main.class.getResource("/FirstPage/ACCOUNTANT-HOVER.png");
+	
+	//STATE 20 - C-LOGIN
+	URL url_twoZeroLogin = Main.class.getResource("/C-Login/LOGIN.png");
+	URL url_twoZeroLoginHover = Main.class.getResource("/C-Login/LOGIN-HOVER.png");
+	URL url_twoZeroLoginCheck = Main.class.getResource("/C-Login/LOGIN-CHECKING.png");
+	//STATE 21 - C-MAIN
+	URL url_twoOnePrintImage = Main.class.getResource("/C-Main/PRINT.png");
+	URL url_twoOneBiller = Main.class.getResource("/C-Main/BILLER.png");
+	URL url_twoOneBillerHover = Main.class.getResource("/C-Main/BILLER-HOVER.png");
+	URL url_twoOnePayee = Main.class.getResource("/C-Main/PAYEE.png");
+	URL url_twoOnePayeeHover = Main.class.getResource("/C-Main/PAYEE-HOVER.png");
+	URL url_twoOneBillPayment = Main.class.getResource("/C-Main/BILL-PAYMENT.png");
+	URL url_twoOneBillPaymentHover = Main.class.getResource("/C-Main/BILL-PAYMENT-HOVER.png");
+	URL url_twoOneFunds = Main.class.getResource("/C-Main/FUNDS.png");
+	URL url_twoOneFundsHover = Main.class.getResource("/C-Main/FUNDS-HOVER.png");
+	//STATE 22 - C-BILLER
+	URL url_twoTwoBillerAdded = Main.class.getResource("/C-Biller/BILLERADDED.png");
+	URL url_twoTwoBillerInvalid = Main.class.getResource("/C-Biller/INVALID.png");
+	//STATE 23 - C-PAYEE
+	URL url_twoThreePayeeAdded = Main.class.getResource("/C-Payee/PAYEEADDED.png");
+	//STATE 24 - C-BILL-PAYMENT
+	URL url_twoFourSendPayment = Main.class.getResource("/C-BillPayment/SEND-PAYMENT.png");
+	URL url_twoFourSendPaymentHover = Main.class.getResource("/C-BillPayment/SEND-PAYMENT-HOVER.png");
+	URL url_twoFourSent = Main.class.getResource("/C-BillPayment/SENT.png");
+	//STATE 30 - M-LOGIN
+	URL url_threeZeroLogin = Main.class.getResource("/M-Login/LOGIN.png");
+	URL url_threeZeroLoginHover = Main.class.getResource("/M-Login/LOGIN-HOVER.png");
+	URL url_threeZeroLoginCheck = Main.class.getResource("/M-Login/LOGIN-CHECKING.png");
+	//STATE 31 - M-MAIN
+	URL url_threeOneAccounts = Main.class.getResource("/M-Main/ACCOUNTS.png");
+	URL url_threeOneAccountsHover = Main.class.getResource("/M-Main/ACCOUNTS-HOVER.png");
+	URL url_threeOneCustomers = Main.class.getResource("/M-Main/CUSTOMER.png");
+	URL url_threeOneCustomersHover = Main.class.getResource("/M-Main/CUSTOMER-HOVER.png");
+	//STATE 32 - M-ACCOUNTS
+	URL url_threeTwoAdd =Main.class.getResource("/M-Accounts/ADD-ACCOUNT.png");
+	URL url_threeTwoAddHover = Main.class.getResource("/M-Accounts/ADD-ACCOUNT-HOVER.png");
+	URL url_threeTwoDelete = Main.class.getResource("/M-Accounts/DELETE-ACCOUNT.png");
+	URL url_threeTwoDeleteHover = Main.class.getResource("/M-Accounts/DELETE-ACCOUNT-HOVER.png");
+	URL url_threeTwoModify = Main.class.getResource("/M-Accounts/MODIFY-ACCOUNT.png");
+	URL url_threeTwoModifyHover = Main.class.getResource("/M-Accounts/MODIFY-ACCOUNT-HOVER.png");
+	//STATE 33 - M-CUSTOMERS
+	URL url_threeThreeAdd = Main.class.getResource("/M-Customers/ADD-CUSTOMER.png");
+	URL url_threeThreeAddHover = Main.class.getResource("/M-Customers/ADD-CUSTOMER-HOVER.png");
+	URL url_threeThreeModify = Main.class.getResource("/M-Customers/MODIFY-CUSTOMER.png");
+	URL url_threeThreeModifyHover = Main.class.getResource("/M-Customers/MODIFY-CUSTOMER-HOVER.png");
+	//STATE 35 - M-C-MODIFY
+	URL url_threeFiveSaved = Main.class.getResource("/M-C-Modify/CHANGES-SAVED.png");
+	//STATE 36 - M-C-ADD
+	URL url_threeSixAdded = Main.class.getResource("/M-C-Add/CUSTOMER-ADDED.png");
+	//STATE 38 - M-A-MODIFY
+	URL url_threeEightModify = Main.class.getResource("/M-A-Modify/MODIFY-ACCOUNT.png");
+	URL url_threeEightModifyHover = Main.class.getResource("/M-A-Modify/MODIFY-ACCOUNT-HOVER.png");
+	URL url_threeEightModified = Main.class.getResource("/M-A-Modify/MODIFIED.png");
+	//STATE 381- M-A-DELETE
+	URL url_threeEightOneDelete = Main.class.getResource("/M-A-Delete/DELETE-ACCOUNT.png");
+	URL url_threeEightOneDeleteHover = Main.class.getResource("/M-A-Delete/DELETE-ACCOUNT-HOVER.png");
+	URL url_threeEightOneDeleted = Main.class.getResource("/M-A-Delete/DELETED.png");
+	//STATE 39 - M-A-ADD
+	URL url_threeNineAdded = Main.class.getResource("/M-A-Add/ADDED.png");
+	
 	//ICONS
-	ImageIcon iconDark = new ImageIcon("Graphics/Icons/Dark_50px.png");
+	ImageIcon iconDark = new ImageIcon(url_iconDark);
+	ImageIcon iconWhite = new ImageIcon(url_iconWhite);
+	ImageIcon iconSimple = new ImageIcon(url_iconSimple);
+	ImageIcon exitImage = new ImageIcon(url_exitImage);
+	ImageIcon logoutImage = new ImageIcon(url_logoutImage);
+	ImageIcon backImage = new ImageIcon(url_backImage);
+	ImageIcon incorrectImage = new ImageIcon(url_incorrectImage);
+	ImageIcon searchImage = new ImageIcon(url_searchImage);
+	ImageIcon searchImageHover = new ImageIcon(url_searchImageHover);
+	ImageIcon searchIcon = new ImageIcon(url_searchIcon);
+	ImageIcon wrongImage = new ImageIcon(url_wrongImage);
+	ImageIcon refreshIcon = new ImageIcon(url_refreshIcon);
+	ImageIcon creditImage = new ImageIcon(url_creditImage);
+	ImageIcon debitImage = new ImageIcon(url_debitImage);
+	//STATE ONE
+	ImageIcon oneCustomer = new ImageIcon(url_oneCustomer);
+	ImageIcon oneCustomerHover = new ImageIcon(url_oneCustomerHover);
+
+	ImageIcon oneBankManager = new ImageIcon(url_oneBankManager);
+	ImageIcon oneBankManagerHover = new ImageIcon(url_oneBankManagerHover);
+
+	ImageIcon oneAccountant = new ImageIcon(url_oneAccountant);
+	ImageIcon oneAccountantHover = new ImageIcon(url_oneAccountantHover);
+	
+	//STATE 20 - C-LOGIN
+	ImageIcon twoZeroLogin = new ImageIcon(url_twoZeroLogin);
+	ImageIcon twoZeroLoginHover = new ImageIcon(url_twoZeroLoginHover);
+	ImageIcon twoZeroLoginCheck = new ImageIcon(url_twoZeroLoginCheck);
+	//STATE 21 - C-MAIN
+	ImageIcon twoOnePrintImage = new ImageIcon(url_twoOnePrintImage);
+	ImageIcon twoOneBiller = new ImageIcon(url_twoOneBiller);
+	ImageIcon twoOneBillerHover = new ImageIcon(url_twoOneBillerHover);
+	ImageIcon twoOnePayee = new ImageIcon(url_twoOnePayee);
+	ImageIcon twoOnePayeeHover = new ImageIcon(url_twoOnePayeeHover);
+	ImageIcon twoOneBillPayment = new ImageIcon(url_twoOneBillPayment);
+	ImageIcon twoOneBillPaymentHover = new ImageIcon(url_twoOneBillPaymentHover);
+	ImageIcon twoOneFunds = new ImageIcon(url_twoOneFunds);
+	ImageIcon twoOneFundsHover = new ImageIcon(url_twoOneFundsHover);
+	//STATE 22 - C-BILLER
+	ImageIcon twoTwoBillerAdded = new ImageIcon(url_twoTwoBillerAdded);
+	ImageIcon twoTwoBillerInvalid = new ImageIcon(url_twoTwoBillerInvalid);
+	//STATE 23 - C-PAYEE
+	ImageIcon twoThreePayeeAdded = new ImageIcon(url_twoThreePayeeAdded);
+	//STATE 24 - C-BILL-PAYMENT
+	ImageIcon twoFourSendPayment = new ImageIcon(url_twoFourSendPayment);
+	ImageIcon twoFourSendPaymentHover = new ImageIcon(url_twoFourSendPaymentHover);
+	ImageIcon twoFourSent = new ImageIcon(url_twoFourSent);
+	//STATE 30 - M-LOGIN
+	ImageIcon threeZeroLogin = new ImageIcon(url_threeZeroLogin);
+	ImageIcon threeZeroLoginHover = new ImageIcon(url_threeZeroLoginHover);
+	ImageIcon threeZeroLoginCheck = new ImageIcon(url_threeZeroLoginCheck);
+	//STATE 31 - M-MAIN
+	ImageIcon threeOneAccounts = new ImageIcon(url_threeOneAccounts);
+	ImageIcon threeOneAccountsHover = new ImageIcon(url_threeOneAccountsHover);
+	ImageIcon threeOneCustomers = new ImageIcon(url_threeOneCustomers);
+	ImageIcon threeOneCustomersHover = new ImageIcon(url_threeOneCustomersHover);
+	//STATE 32 - M-ACCOUNTS
+	ImageIcon threeTwoAdd = new ImageIcon(url_threeTwoAdd);
+	ImageIcon threeTwoAddHover = new ImageIcon(url_threeTwoAddHover);
+	ImageIcon threeTwoDelete = new ImageIcon(url_threeTwoDelete);
+	ImageIcon threeTwoDeleteHover = new ImageIcon(url_threeTwoDeleteHover);
+	ImageIcon threeTwoModify = new ImageIcon(url_threeTwoModify);
+	ImageIcon threeTwoModifyHover = new ImageIcon(url_threeTwoModifyHover);
+	//STATE 33 - M-CUSTOMERS
+	ImageIcon threeThreeAdd = new ImageIcon(url_threeThreeAdd);
+	ImageIcon threeThreeAddHover = new ImageIcon(url_threeThreeAddHover);
+	ImageIcon threeThreeModify = new ImageIcon(url_threeThreeModify);
+	ImageIcon threeThreeModifyHover = new ImageIcon(url_threeThreeModifyHover);
+	//STATE 35 - M-C-MODIFY
+	ImageIcon threeFiveSaved = new ImageIcon(url_threeFiveSaved);
+	//STATE 36 - M-C-ADD
+	ImageIcon threeSixAdded = new ImageIcon(url_threeSixAdded);
+	//STATE 38 - M-A-MODIFY
+	ImageIcon threeEightModify = new ImageIcon(url_threeEightModify);
+	ImageIcon threeEightModifyHover = new ImageIcon(url_threeEightModifyHover);
+	ImageIcon threeEightModified = new ImageIcon(url_threeEightModified);
+	//STATE 381- M-A-DELETE
+	ImageIcon threeEightOneDelete = new ImageIcon(url_threeEightOneDelete);
+	ImageIcon threeEightOneDeleteHover = new ImageIcon(url_threeEightOneDeleteHover);
+	ImageIcon threeEightOneDeleted = new ImageIcon(url_threeEightOneDeleted);
+	//STATE 39 - M-A-ADD
+	ImageIcon threeNineAdded = new ImageIcon(url_threeNineAdded);
+	//ICONS
+	/*ImageIcon iconDark = new ImageIcon("Graphics/Icons/Dark_50px.png");
 	ImageIcon iconWhite = new ImageIcon("Graphics/Icons/White_50px.png");
 	ImageIcon iconSimple = new ImageIcon("Graphics/Icons/Simple_50px.png");
 	ImageIcon exitImage = new ImageIcon("Graphics/EXIT.png");
@@ -262,7 +429,7 @@ public class GUI implements MouseListener, ActionListener{
 	ImageIcon threeEightOneDeleteHover = new ImageIcon("Graphics/M-A-Delete/DELETE-ACCOUNT-HOVER.png");
 	ImageIcon threeEightOneDeleted = new ImageIcon("Graphics/M-A-Delete/DELETED.png");
 	//STATE 39 - M-A-ADD
-	ImageIcon threeNineAdded = new ImageIcon("Graphics/M-A-Add/ADDED.png");
+	ImageIcon threeNineAdded = new ImageIcon("Graphics/M-A-Add/ADDED.png");*/
 			
 	//GLOBAL PARAMETERS
 	GUIParameters gParams = new GUIParameters();
@@ -277,6 +444,7 @@ public class GUI implements MouseListener, ActionListener{
 		businessAccountant = new BusinessAccountant();
 		//SETTING CORRECT STATE
 		softwareState = 1;
+		
 		
 		//SETTING UP FRAME
 		welcomePage = new JFrame("BMS");
@@ -299,6 +467,8 @@ public class GUI implements MouseListener, ActionListener{
 		
 		welcomePage.setVisible(true);
 		stateOne();
+		
+		
 	}
 	
 	private void stateOne() {
@@ -306,7 +476,8 @@ public class GUI implements MouseListener, ActionListener{
 		mainPane.removeAll();
 		
 		//BACKGROUND
-		ImageIcon bgImage = new ImageIcon("Graphics/FirstPage/LayoutBase.png");
+		URL url_bgImage = Main.class.getResource("/FirstPage/LayoutBase.png");
+		ImageIcon bgImage = new ImageIcon(url_bgImage);
 		background = new JLabel();
 		background.setIcon(bgImage);
 		background.setBounds(0, 0, gParams.frameWidth, gParams.frameHeight);
@@ -352,7 +523,8 @@ public class GUI implements MouseListener, ActionListener{
 		customerBalance = new ArrayList<Double>();
 		
 		//BACKGROUND
-		ImageIcon bgImage = new ImageIcon("Graphics/C-Login/LayoutBase.png");
+		URL url_bgImage = Main.class.getResource("/C-Login/LayoutBase.png");
+		ImageIcon bgImage = new ImageIcon(url_bgImage);
 		background = new JLabel();
 		background.setIcon(bgImage);
 		background.setBounds(0, 0, gParams.frameWidth, gParams.frameHeight);
@@ -418,7 +590,8 @@ public class GUI implements MouseListener, ActionListener{
 		mainPane.removeAll();
 
 		//BACKGROUND
-		ImageIcon bgImage = new ImageIcon("Graphics/C-Main/LayoutBase.png");
+		URL url_bgImage = Main.class.getResource("/C-Main/LayoutBase.png");
+		ImageIcon bgImage = new ImageIcon(url_bgImage);
 		background = new JLabel();
 		background.setIcon(bgImage);
 		background.setBounds(0, 0, gParams.frameWidth, gParams.frameHeight);
@@ -589,7 +762,9 @@ public class GUI implements MouseListener, ActionListener{
 		twoTwoABLabel.addMouseListener(this);
 
 		//BACKGROUND
-		ImageIcon bgImage = new ImageIcon("Graphics/C-Biller/LayoutBase.png");
+		URL url_bgImage = Main.class.getResource("/C-Biller/LayoutBase.png");
+		ImageIcon bgImage = new ImageIcon(url_bgImage);
+		//ImageIcon bgImage = new ImageIcon("Graphics/C-Biller/LayoutBase.png");
 		background = new JLabel();
 		background.setIcon(bgImage);
 		background.setBounds(0, 0, gParams.frameWidth, gParams.frameHeight);
@@ -712,7 +887,9 @@ public class GUI implements MouseListener, ActionListener{
 		wrongLabel.setBounds(586, 221, wrongImage.getIconWidth(), wrongImage.getIconHeight());
 	
 		//BACKGROUND
-		ImageIcon bgImage = new ImageIcon("Graphics/C-Payee/LayoutBase.png");
+		URL url_bgImage = Main.class.getResource("/C-Payee/LayoutBase.png");
+		ImageIcon bgImage = new ImageIcon(url_bgImage);
+		//ImageIcon bgImage = new ImageIcon("Graphics/C-Payee/LayoutBase.png");
 		background = new JLabel();
 		background.setIcon(bgImage);
 		background.setBounds(0, 0, gParams.frameWidth, gParams.frameHeight);
@@ -852,7 +1029,9 @@ public class GUI implements MouseListener, ActionListener{
  		twoFourSLabel.addMouseListener(this);
 		
 		//BACKGROUND
-		ImageIcon bgImage = new ImageIcon("Graphics/C-BillPayment/LayoutBase.png");
+ 		URL url_bgImage = Main.class.getResource("/C-BillPayment/LayoutBase.png");
+		ImageIcon bgImage = new ImageIcon(url_bgImage);
+		//ImageIcon bgImage = new ImageIcon("Graphics/C-BillPayment/LayoutBase.png");
 		background = new JLabel();
 		background.setIcon(bgImage);
 		background.setBounds(0, 0, gParams.frameWidth, gParams.frameHeight);
@@ -1003,7 +1182,9 @@ public class GUI implements MouseListener, ActionListener{
  		twoFourSLabel.addMouseListener(this);
 		
 		//BACKGROUND
-		ImageIcon bgImage = new ImageIcon("Graphics/C-Funds/LayoutBase.png");
+ 		URL url_bgImage = Main.class.getResource("/C-Funds/LayoutBase.png");
+		ImageIcon bgImage = new ImageIcon(url_bgImage);
+		//ImageIcon bgImage = new ImageIcon("Graphics/C-Funds/LayoutBase.png");
 		background = new JLabel();
 		background.setIcon(bgImage);
 		background.setBounds(0, 0, gParams.frameWidth, gParams.frameHeight);
@@ -1094,7 +1275,9 @@ public class GUI implements MouseListener, ActionListener{
 		mainPane.removeAll();
 
 		//BACKGROUND
-		ImageIcon bgImage = new ImageIcon("Graphics/M-Login/LayoutBase.png");
+		URL url_bgImage = Main.class.getResource("/M-Login/LayoutBase.png");
+		ImageIcon bgImage = new ImageIcon(url_bgImage);
+		//ImageIcon bgImage = new ImageIcon("Graphics/M-Login/LayoutBase.png");
 		background = new JLabel();
 		background.setIcon(bgImage);
 		background.setBounds(0, 0, gParams.frameWidth, gParams.frameHeight);
@@ -1160,7 +1343,9 @@ public class GUI implements MouseListener, ActionListener{
 		mainPane.removeAll();
 
 		//BACKGROUND
-		ImageIcon bgImage = new ImageIcon("Graphics/M-Main/LayoutBase.png");
+		URL url_bgImage = Main.class.getResource("/M-Main/LayoutBase.png");
+		ImageIcon bgImage = new ImageIcon(url_bgImage);
+		//ImageIcon bgImage = new ImageIcon("Graphics/M-Main/LayoutBase.png");
 		background = new JLabel();
 		background.setIcon(bgImage);
 		background.setBounds(0, 0, gParams.frameWidth, gParams.frameHeight);
@@ -1202,7 +1387,9 @@ public class GUI implements MouseListener, ActionListener{
 		mainPane.removeAll();
 
 		//BACKGROUND
-		ImageIcon bgImage = new ImageIcon("Graphics/M-Accounts/LayoutBase.png");
+		URL url_bgImage = Main.class.getResource("/M-Accounts/LayoutBase.png");
+		ImageIcon bgImage = new ImageIcon(url_bgImage);
+		//ImageIcon bgImage = new ImageIcon("Graphics/M-Accounts/LayoutBase.png");
 		background = new JLabel();
 		background.setIcon(bgImage);
 		background.setBounds(0, 0, gParams.frameWidth, gParams.frameHeight);
@@ -1265,7 +1452,9 @@ public class GUI implements MouseListener, ActionListener{
 		mainPane.removeAll();
 
 		//BACKGROUND
-		ImageIcon bgImage = new ImageIcon("Graphics/M-Customers/LayoutBase.png");
+		URL url_bgImage = Main.class.getResource("/M-Customers/LayoutBase.png");
+		ImageIcon bgImage = new ImageIcon(url_bgImage);
+		//ImageIcon bgImage = new ImageIcon("Graphics/M-Customers/LayoutBase.png");
 		background = new JLabel();
 		background.setIcon(bgImage);
 		background.setBounds(0, 0, gParams.frameWidth, gParams.frameHeight);
@@ -1321,7 +1510,9 @@ public class GUI implements MouseListener, ActionListener{
 		mainPane.removeAll();
 
 		//BACKGROUND
-		ImageIcon bgImage = new ImageIcon("Graphics/M-C-Search/LayoutBase.png");
+		URL url_bgImage = Main.class.getResource("/M-C-Search/LayoutBase.png");
+		ImageIcon bgImage = new ImageIcon(url_bgImage);
+		//ImageIcon bgImage = new ImageIcon("Graphics/M-C-Search/LayoutBase.png");
 		background = new JLabel();
 		background.setIcon(bgImage);
 		background.setBounds(0, 0, gParams.frameWidth, gParams.frameHeight);
@@ -1457,7 +1648,9 @@ public class GUI implements MouseListener, ActionListener{
 		mainPane.removeAll();
 
 		//BACKGROUND
-		ImageIcon bgImage = new ImageIcon("Graphics/M-C-Modify/LayoutBase.png");
+		URL url_bgImage = Main.class.getResource("/M-C-Modify/LayoutBase.png");
+		ImageIcon bgImage = new ImageIcon(url_bgImage);
+		//ImageIcon bgImage = new ImageIcon("Graphics/M-C-Modify/LayoutBase.png");
 		background = new JLabel();
 		background.setIcon(bgImage);
 		background.setBounds(0, 0, gParams.frameWidth, gParams.frameHeight);
@@ -1612,7 +1805,9 @@ public class GUI implements MouseListener, ActionListener{
 		mainPane.removeAll();
 
 		//BACKGROUND
-		ImageIcon bgImage = new ImageIcon("Graphics/M-C-Add/LayoutBase.png");
+		URL url_bgImage = Main.class.getResource("/M-C-Add/LayoutBase.png");
+		ImageIcon bgImage = new ImageIcon(url_bgImage);
+		//ImageIcon bgImage = new ImageIcon("Graphics/M-C-Add/LayoutBase.png");
 		background = new JLabel();
 		background.setIcon(bgImage);
 		background.setBounds(0, 0, gParams.frameWidth, gParams.frameHeight);
@@ -1724,7 +1919,9 @@ public class GUI implements MouseListener, ActionListener{
 		mainPane.removeAll();
 
 		//BACKGROUND
-		ImageIcon bgImage = new ImageIcon("Graphics/M-A-Search/LayoutBase.png");
+		URL url_bgImage = Main.class.getResource("/M-A-Search/LayoutBase.png");
+		ImageIcon bgImage = new ImageIcon(url_bgImage);
+		//ImageIcon bgImage = new ImageIcon("Graphics/M-A-Search/LayoutBase.png");
 		background = new JLabel();
 		background.setIcon(bgImage);
 		background.setBounds(0, 0, gParams.frameWidth, gParams.frameHeight);
@@ -1885,7 +2082,9 @@ public class GUI implements MouseListener, ActionListener{
 		mainPane.removeAll();
 
 		//BACKGROUND
-		ImageIcon bgImage = new ImageIcon("Graphics/M-A-Delete/LayoutBase.png");
+		URL url_bgImage = Main.class.getResource("/M-A-Delete/LayoutBase.png");
+		ImageIcon bgImage = new ImageIcon(url_bgImage);
+		//ImageIcon bgImage = new ImageIcon("Graphics/M-A-Delete/LayoutBase.png");
 		background = new JLabel();
 		background.setIcon(bgImage);
 		background.setBounds(0, 0, gParams.frameWidth, gParams.frameHeight);
@@ -2052,7 +2251,9 @@ public class GUI implements MouseListener, ActionListener{
 		mainPane.removeAll();
 
 		//BACKGROUND
-		ImageIcon bgImage = new ImageIcon("Graphics/M-A-Delete/LayoutBase.png");
+		URL url_bgImage = Main.class.getResource("/M-A-Modify/LayoutBase.png");
+		ImageIcon bgImage = new ImageIcon(url_bgImage);
+		//ImageIcon bgImage = new ImageIcon("Graphics/M-A-Modify/LayoutBase.png");
 		background = new JLabel();
 		background.setIcon(bgImage);
 		background.setBounds(0, 0, gParams.frameWidth, gParams.frameHeight);
@@ -2219,7 +2420,9 @@ public class GUI implements MouseListener, ActionListener{
 		mainPane.removeAll();
 
 		//BACKGROUND
-		ImageIcon bgImage = new ImageIcon("Graphics/M-A-Add/LayoutBase.png");
+		URL url_bgImage = Main.class.getResource("/M-A-Add/LayoutBase.png");
+		ImageIcon bgImage = new ImageIcon(url_bgImage);
+		//ImageIcon bgImage = new ImageIcon("Graphics/M-A-Add/LayoutBase.png");
 		background = new JLabel();
 		background.setIcon(bgImage);
 		background.setBounds(0, 0, gParams.frameWidth, gParams.frameHeight);
@@ -2406,7 +2609,9 @@ public class GUI implements MouseListener, ActionListener{
 		mainPane.removeAll();
 
 		//BACKGROUND
-		ImageIcon bgImage = new ImageIcon("Graphics/A-Login/LayoutBase.png");
+		URL url_bgImage = Main.class.getResource("/A-Login/LayoutBase.png");
+		ImageIcon bgImage = new ImageIcon(url_bgImage);
+		//ImageIcon bgImage = new ImageIcon("Graphics/A-Login/LayoutBase.png");
 		background = new JLabel();
 		background.setIcon(bgImage);
 		background.setBounds(0, 0, gParams.frameWidth, gParams.frameHeight);
@@ -2484,7 +2689,9 @@ public class GUI implements MouseListener, ActionListener{
 		fourOneCredit.addMouseListener(this);
 
 		//BACKGROUND
-		ImageIcon bgImage = new ImageIcon("Graphics/A-Main/LayoutBase.png");
+		URL url_bgImage = Main.class.getResource("/A-Main/LayoutBase.png");
+		ImageIcon bgImage = new ImageIcon(url_bgImage);
+		//ImageIcon bgImage = new ImageIcon("Graphics/A-Main/LayoutBase.png");
 		background = new JLabel();
 		background.setIcon(bgImage);
 		background.setBounds(0, 0, gParams.frameWidth, gParams.frameHeight);
