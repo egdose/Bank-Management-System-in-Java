@@ -2609,9 +2609,9 @@ public class GUI implements MouseListener, ActionListener{
 		mainPane.removeAll();
 
 		//BACKGROUND
-		URL url_bgImage = Main.class.getResource("/A-Login/LayoutBase.png");
-		ImageIcon bgImage = new ImageIcon(url_bgImage);
-		//ImageIcon bgImage = new ImageIcon("Graphics/A-Login/LayoutBase.png");
+		//URL url_bgImage = Main.class.getResource("/A-Login/LayoutBase.png");
+		//ImageIcon bgImage = new ImageIcon(url_bgImage);
+		ImageIcon bgImage = new ImageIcon("Graphics/A-Login/LayoutBase.png");
 		background = new JLabel();
 		background.setIcon(bgImage);
 		background.setBounds(0, 0, gParams.frameWidth, gParams.frameHeight);
@@ -2689,9 +2689,9 @@ public class GUI implements MouseListener, ActionListener{
 		fourOneCredit.addMouseListener(this);
 
 		//BACKGROUND
-		URL url_bgImage = Main.class.getResource("/A-Main/LayoutBase.png");
-		ImageIcon bgImage = new ImageIcon(url_bgImage);
-		//ImageIcon bgImage = new ImageIcon("Graphics/A-Main/LayoutBase.png");
+		//URL url_bgImage = Main.class.getResource("/A-Main/LayoutBase.png");
+		//ImageIcon bgImage = new ImageIcon(url_bgImage);
+		ImageIcon bgImage = new ImageIcon("Graphics/A-Main/LayoutBase.png");
 		background = new JLabel();
 		background.setIcon(bgImage);
 		background.setBounds(0, 0, gParams.frameWidth, gParams.frameHeight);
@@ -3441,19 +3441,34 @@ public class GUI implements MouseListener, ActionListener{
 				else
 				{
 					threeFourILabel.setIcon(null);
-					int response = custManagment.mCModify(
-								threeFourID.getText(),
-								threeFourAddress.getText(),
-								threeFourContact.getText(),
-								new String(threeFivePassword.getPassword()));
+					Boolean boundaryCheck = false;
+					System.out.println(threeFourAddress.getText().length());
+					System.out.println(threeFourContact.getText().length());
+					System.out.println(threeFivePassword.getPassword().length);
+					boundaryCheck |= (threeFourAddress.getText().length() < 5 || threeFourAddress.getText().length() > 20);
+					boundaryCheck |= ((threeFivePassword.getPassword().length < 8))
+					            || (threeFivePassword.getPassword() == null);
 					
-					if(response != 1)
+					if (boundaryCheck)
 					{
 						threeFourILabel.setIcon(incorrectImage);
 					}
 					else
 					{
-						threeFiveMLabel.setIcon(threeFiveSaved);
+						int response = custManagment.mCModify(
+								threeFourID.getText(),
+								threeFourAddress.getText(),
+								threeFourContact.getText(),
+								new String(threeFivePassword.getPassword()));
+
+						if(response != 1)
+						{
+							threeFourILabel.setIcon(incorrectImage);
+						}
+						else
+						{
+							threeFiveMLabel.setIcon(threeFiveSaved);
+						}
 					}
 				}
 			}
@@ -3477,7 +3492,31 @@ public class GUI implements MouseListener, ActionListener{
 			else if(e.getSource() == threeSixALabel)
 			{
 				wrongLabel.setIcon(null);
-				int response = custManagment.mCAdd(
+				//Boundary Checks
+				Boolean boundaryCheck = false;
+				System.out.println(threeFourName.getText().length());
+				System.out.println(threeFourAddress.getText().length());
+				System.out.println(threeFourContact.getText().length());
+				System.out.println(threeFourCNIC.getText().length());
+				System.out.println(threeFourUsername.getText().length());
+				System.out.println(threeFivePassword.getPassword().length);
+				boundaryCheck |= (threeFourName.getText().length() < 5 || threeFourName.getText().length() > 20);
+				boundaryCheck |= (threeFourAddress.getText().length() < 5 || threeFourAddress.getText().length() > 20);
+				boundaryCheck |= (threeFourContact.getText().length() != 11 || threeFourContact.getText().charAt(0) != '0' || threeFourContact.getText().charAt(1) != '3');
+				boundaryCheck |= (threeFourCNIC.getText().length() != 13);
+				boundaryCheck |= ((threeFourUsername.getText().equals(""))
+				            || (threeFourUsername.getText() == null)
+				            || (!threeFourUsername.getText().matches("^[a-zA-Z]*$")));
+				boundaryCheck |= ((threeFivePassword.getPassword().length < 8))
+				            || (threeFivePassword.getPassword() == null);
+				
+				if (boundaryCheck)
+				{
+					wrongLabel.setIcon(wrongImage);
+				}
+				else
+				{
+					int response = custManagment.mCAdd(
 							threeFourName.getText(),
 							threeFourAddress.getText(),
 							threeFourContact.getText(),
@@ -3485,13 +3524,14 @@ public class GUI implements MouseListener, ActionListener{
 							threeFourUsername.getText(),
 							new String(threeFivePassword.getPassword()));
 				
-				if(response != 1)
-				{
-					wrongLabel.setIcon(wrongImage);
-				}
-				else
-				{
-					threeSixALabel.setIcon(threeSixAdded);
+					if(response != 1)
+					{
+						wrongLabel.setIcon(wrongImage);
+					}
+					else
+					{
+						threeSixALabel.setIcon(threeSixAdded);
+					}
 				}
 			}
 		}
@@ -3633,16 +3673,30 @@ public class GUI implements MouseListener, ActionListener{
 					String status = threeSevenStatus.getText();
 					String type = threeSevenType.getText();
 					String lim = threeSevenLimit.getText();
+
+					//Boundary Checks
+					Boolean boundaryCheck = false;
+					boundaryCheck |= (title.length() < 5 || title.length() > 20);
+					boundaryCheck |= (type.length() < 3 || type.length() > 10);
+					Integer limInt = Integer.parseInt(lim);
+					boundaryCheck |= (limInt < 100 || limInt > 100000);
 					
-					int response = accManagement.mAModify(accNum, title, status, type, lim);
-					
-					if(response == 0)
+					if(boundaryCheck)
 					{
 						threeSevenWLabel.setIcon(wrongImage);
 					}
 					else
 					{
-						threeEightMLabel.setIcon(threeEightModified);
+						int response = accManagement.mAModify(accNum, title, status, type, lim);
+						
+						if(response == 0)
+						{
+							threeSevenWLabel.setIcon(wrongImage);
+						}
+						else
+						{
+							threeEightMLabel.setIcon(threeEightModified);
+						}
 					}
 				}
 			}
@@ -3798,10 +3852,27 @@ public class GUI implements MouseListener, ActionListener{
 				String type = threeSevenType.getText();
 				String lim = threeSevenLimit.getText();
 				String balance = threeSevenBalance.getText();
-				int response = accManagement.mAAdd(custID, title, type, lim, balance);
+
+				//Boundary Checks
+				Boolean boundaryCheck = false;
+				boundaryCheck |= (title.length() < 5 || title.length() > 20);
+				boundaryCheck |= (type.length() < 3 || type.length() > 10);
+				Integer limInt = Integer.parseInt(lim);
+				boundaryCheck |= (limInt < 100 || limInt > 100000);
+				Integer balanceInt = Integer.parseInt(balance);
+				boundaryCheck |= (balanceInt < 0);
 				
-				threeSevenQuery.setText(Integer.toString(response));
-				threeNineALabel.setIcon(threeNineAdded);
+				if(boundaryCheck)
+				{
+					threeSevenWLabel.setIcon(wrongImage);
+				}
+				else
+				{
+					int response = accManagement.mAAdd(custID, title, type, lim, balance);
+					
+					threeSevenQuery.setText(Integer.toString(response));
+					threeNineALabel.setIcon(threeNineAdded);
+				}
 			}
 		}
 		else if(softwareState == 40)
@@ -3878,14 +3949,23 @@ public class GUI implements MouseListener, ActionListener{
 					String accNum = threeSevenQuery.getText();
 					String amount = fourOneAmount.getText();
 					
-					int response = businessAccountant.accountantCredit(accNum, amount);
+					Integer amountInt = Integer.parseInt(amount);
 					
-					if(response == 1)
+					if(amountInt <= 0)
 					{
-						fourOneAmount.setText("0");
+						threeSevenWLabel.setIcon(wrongImage);
 					}
 					else
-						threeSevenWLabel.setIcon(wrongImage);
+					{
+						int response = businessAccountant.accountantCredit(accNum, amount);
+						
+						if(response == 1)
+						{
+							fourOneAmount.setText("0");
+						}
+						else
+							threeSevenWLabel.setIcon(wrongImage);
+					}
 				}
 				catch (Exception ee) {
 					threeSevenWLabel.setIcon(wrongImage);
