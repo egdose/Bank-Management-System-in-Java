@@ -2609,9 +2609,9 @@ public class GUI implements MouseListener, ActionListener{
 		mainPane.removeAll();
 
 		//BACKGROUND
-		//URL url_bgImage = Main.class.getResource("/A-Login/LayoutBase.png");
-		//ImageIcon bgImage = new ImageIcon(url_bgImage);
-		ImageIcon bgImage = new ImageIcon("Graphics/A-Login/LayoutBase.png");
+		URL url_bgImage = Main.class.getResource("/A-Login/LayoutBase.png");
+		ImageIcon bgImage = new ImageIcon(url_bgImage);
+		//ImageIcon bgImage = new ImageIcon("Graphics/A-Login/LayoutBase.png");
 		background = new JLabel();
 		background.setIcon(bgImage);
 		background.setBounds(0, 0, gParams.frameWidth, gParams.frameHeight);
@@ -2689,9 +2689,9 @@ public class GUI implements MouseListener, ActionListener{
 		fourOneCredit.addMouseListener(this);
 
 		//BACKGROUND
-		//URL url_bgImage = Main.class.getResource("/A-Main/LayoutBase.png");
-		//ImageIcon bgImage = new ImageIcon(url_bgImage);
-		ImageIcon bgImage = new ImageIcon("Graphics/A-Main/LayoutBase.png");
+		URL url_bgImage = Main.class.getResource("/A-Main/LayoutBase.png");
+		ImageIcon bgImage = new ImageIcon(url_bgImage);
+		//ImageIcon bgImage = new ImageIcon("Graphics/A-Main/LayoutBase.png");
 		background = new JLabel();
 		background.setIcon(bgImage);
 		background.setBounds(0, 0, gParams.frameWidth, gParams.frameHeight);
@@ -3929,15 +3929,23 @@ public class GUI implements MouseListener, ActionListener{
 				try {
 					String accNum = threeSevenQuery.getText();
 					String amount = fourOneAmount.getText();
-					
-					int response = businessAccountant.accountantDebit(accNum, amount);
-					
-					if(response == 1)
+					if ( Integer.parseInt(amount) <= 0 )
 					{
-						fourOneAmount.setText("0");
+						threeSevenWLabel.setIcon(wrongImage);
 					}
 					else
-						threeSevenWLabel.setIcon(wrongImage);
+					{
+						int response = businessAccountant.accountantDebit(accNum, amount);
+						if(response == 1)
+						{
+							fourOneAmount.setText("0");
+						}
+						else
+						{
+							threeSevenWLabel.setIcon(wrongImage);
+						}
+					}
+					
 				}
 				catch (Exception ee) {
 					threeSevenWLabel.setIcon(wrongImage);

@@ -18,15 +18,15 @@ CREATE TABLE CUSTOMER
 
 ALTER TABLE `CUSTOMER` ADD UNIQUE `unique_index`(`Username`, `Password1`);
 
-insert into person(name,address,contact,CNIC) values ('James','767-c, Victoria Heights, Islamabad','0311-1831111','3411-198-71');
+insert into person(name,address,contact,CNIC) values ('James','767-c, Victoria Heights, Islamabad','03111831111','3411-198-71');
 
 insert into customer(person_id,Username,password1) values ((select id from PERSON where CNIC = '3411-198-71'),'Tornado',password('tryhard'));
 
-insert into person(name,address,contact,CNIC) values ('Julie','787-c, Victoria Heights, Islamabad', '0311-1831112','3411-198-777');
+insert into person(name,address,contact,CNIC) values ('Julie','787-c, Victoria Heights, Islamabad', '03111831112','3411-198-777');
 
 insert into customer(person_id,Username,password1) values ((select id from PERSON where CNIC = '3411-198-777'),'GoodOne',password('immortal'));
 
-insert into person(name,address,contact,CNIC) values ('Wilson','797-c, Queens Heights, Lahore', '0311-1837312','3411-198-987');
+insert into person(name,address,contact,CNIC) values ('Wilson','797-c, Queens Heights, Lahore', '03111837312','3411-198-987');
 
 insert into customer(person_id,Username,password1) values ((select id from PERSON where CNIC = '3411-198-987'),'Nisha',password('London'));
 
